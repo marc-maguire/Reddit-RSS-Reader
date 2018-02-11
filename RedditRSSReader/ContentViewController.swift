@@ -7,13 +7,27 @@
 //
 
 import UIKit
+import WebKit
 
 class ContentViewController: UIViewController {
 
-    override func viewDidLoad() {
+	@IBOutlet weak var webView: WKWebView!
+	private var contentURL: String? {
+		didSet {
+			guard let urlString = self.contentURL, let url = URL(string: urlString) else { return }
+			let urlRequest = URLRequest(url: url)
+			webView.load(urlRequest)
+		}
+	}
+	
+	override func viewDidLoad() {
         super.viewDidLoad()
 		
     }
+	
+	func setContentURL(_ withString: String) {
+		self.contentURL = withString
+	}
 
     /*
     // MARK: - Navigation
