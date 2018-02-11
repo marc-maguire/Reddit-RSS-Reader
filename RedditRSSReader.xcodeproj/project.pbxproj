@@ -21,9 +21,10 @@
 		921DC85C20309FDB00A7B5D5 /* RSSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */; };
 		921DC8602030A04600A7B5D5 /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC85F2030A04600A7B5D5 /* Content.storyboard */; };
 		921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8612030A05800A7B5D5 /* ContentViewController.swift */; };
-		921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */; };
 		921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8652030B7DE00A7B5D5 /* FeedItem.swift */; };
 		921DC86D2030BFBC00A7B5D5 /* RSSDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */; };
+		921DC8722031057700A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8702031057700A7B5D5 /* FeedItemTableViewCell.swift */; };
+		921DC8732031057700A7B5D5 /* FeedItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 921DC8712031057700A7B5D5 /* FeedItemTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +58,10 @@
 		921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSTabBarController.swift; sourceTree = "<group>"; };
 		921DC85F2030A04600A7B5D5 /* Content.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Content.storyboard; sourceTree = "<group>"; };
 		921DC8612030A05800A7B5D5 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
-		921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
 		921DC8652030B7DE00A7B5D5 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSDataFetcher.swift; sourceTree = "<group>"; };
+		921DC8702031057700A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
+		921DC8712031057700A7B5D5 /* FeedItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedItemTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +117,13 @@
 			isa = PBXGroup;
 			children = (
 				921DC83A20309D9E00A7B5D5 /* Info.plist */,
+				921DC8702031057700A7B5D5 /* FeedItemTableViewCell.swift */,
+				921DC8712031057700A7B5D5 /* FeedItemTableViewCell.xib */,
 				921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */,
 				921DC86B2030BF2600A7B5D5 /* Supporting Files */,
 				921DC8682030BEB700A7B5D5 /* View Controllers */,
 				921DC86A2030BEEE00A7B5D5 /* Models */,
 				921DC8692030BECD00A7B5D5 /* Views */,
-				921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */,
 			);
 			path = RedditRSSReader;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			files = (
 				921DC83920309D9E00A7B5D5 /* LaunchScreen.storyboard in Resources */,
 				921DC85420309EE500A7B5D5 /* FeedItems.storyboard in Resources */,
+				921DC8732031057700A7B5D5 /* FeedItemTableViewCell.xib in Resources */,
 				921DC8602030A04600A7B5D5 /* Content.storyboard in Resources */,
 				921DC83620309D9E00A7B5D5 /* Assets.xcassets in Resources */,
 				921DC85620309EF400A7B5D5 /* PinnedItems.storyboard in Resources */,
@@ -352,8 +356,8 @@
 				921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */,
 				921DC85C20309FDB00A7B5D5 /* RSSTabBarController.swift in Sources */,
 				921DC86D2030BFBC00A7B5D5 /* RSSDataFetcher.swift in Sources */,
-				921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
 				921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */,
+				921DC8722031057700A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
 				921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */,
 				921DC85820309FA100A7B5D5 /* FeedItemsViewController.swift in Sources */,

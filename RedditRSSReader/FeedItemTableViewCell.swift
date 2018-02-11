@@ -10,6 +10,26 @@ import UIKit
 
 class FeedItemTableViewCell: UITableViewCell {
 
+	@IBOutlet weak private var thumbnailImageView: UIImageView!
+	
+	@IBOutlet weak private var feedTitleLabel: UILabel!
+	
+	@IBOutlet weak private var dateUpdatedLabel: UILabel!
+	
+	@IBOutlet weak private var feedCategoryLabel: UILabel!
+	
+	@IBOutlet weak private var pinnedButton: UIButton!
+	
+	@IBAction func pinnedbuttonPressed(_ sender: UIButton) {
+	}
+	
+	func configureCell(thumbnailImage: UIImage, title: String, dateUpdated: String, category: String) {
+		self.thumbnailImageView.image = thumbnailImage
+		self.feedTitleLabel.text = title
+		self.dateUpdatedLabel.text = dateUpdated
+		self.feedCategoryLabel.text = category
+	}
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +40,5 @@ class FeedItemTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }
