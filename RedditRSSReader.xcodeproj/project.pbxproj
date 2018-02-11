@@ -22,6 +22,7 @@
 		921DC8602030A04600A7B5D5 /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC85F2030A04600A7B5D5 /* Content.storyboard */; };
 		921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8612030A05800A7B5D5 /* ContentViewController.swift */; };
 		921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */; };
+		921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8652030B7DE00A7B5D5 /* FeedItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		921DC85F2030A04600A7B5D5 /* Content.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Content.storyboard; sourceTree = "<group>"; };
 		921DC8612030A05800A7B5D5 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
+		921DC8652030B7DE00A7B5D5 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			children = (
 				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
 				921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */,
+				921DC8652030B7DE00A7B5D5 /* FeedItem.swift */,
 				921DC83220309D9E00A7B5D5 /* Main.storyboard */,
 				921DC85320309EE500A7B5D5 /* FeedItems.storyboard */,
 				921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */,
@@ -316,6 +319,7 @@
 				921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
 				921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
+				921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */,
 				921DC85820309FA100A7B5D5 /* FeedItemsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
