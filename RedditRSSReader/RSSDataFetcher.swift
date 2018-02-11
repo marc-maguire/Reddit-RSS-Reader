@@ -96,6 +96,8 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		for segment in segments {
 			if segment.contains(URLType.rawValue) {
 				parsedURL = segment.components(separatedBy: "=").last
+				let parsedURL1 = parsedURL?.replacingOccurrences(of: "\\", with: "")
+				parsedURL = parsedURL1?.replacingOccurrences(of: ">", with: "")
 				break
 			}
 		}
