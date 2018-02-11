@@ -17,6 +17,11 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewDidLoad()
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
+		let downloader = RSSDataFetcher()
+		downloader.refreshRSSFeed { feedItems in
+			self.feedItems = feedItems
+			self.tableView.reloadData()
+		}
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -16,12 +16,12 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	private var currentElement: String? = nil
 	
 	//Values we will be parsing out:
-	private var title: String? = nil
-	private var dateUpdated: String? = nil
-	private var category: String? = nil
-	private var content: String? = nil
-	private var thumbnailURLString: String? = nil
-	private var contentURLString: String? = nil
+	private var title: String = ""
+	private var dateUpdated: String = ""
+	private var category: String = ""
+	private var content: String = ""
+	private var thumbnailURLString: String = ""
+	private var contentURLString: String = ""
 	
 	
 	//add alternate sources
@@ -82,11 +82,11 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	}
 	
 	func resetParserVars() {
-		self.title = nil
-		self.dateUpdated = nil
-		self.category = nil
-		self.thumbnailURLString = nil
-		self.contentURLString = nil
+		self.title = ""
+		self.dateUpdated = ""
+		self.category = ""
+		self.thumbnailURLString = ""
+		self.contentURLString = ""
 	}
 	
 	func parseURL(_ URLType: ParseTerms, fromContent content: String) -> String? {
@@ -111,24 +111,26 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	//MARK: - XML Parser Delegate
 	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
 		self.currentElement = elementName
+		if elementName == Constants.category {
+			guard let categoryValue = attributeDict.values.first else {return}
+			self.category = categoryValue
+		}
 	}
 	
 	func parser(_ parser: XMLParser, foundCharacters string: String) {
 		//lets build
 		if self.currentElement == Constants.title {
-			self.title?.append(string)
+			self.title.append(string)
 		} else if self.currentElement == Constants.dateUpdated {
-			self.dateUpdated?.append(string)
-		} else if self.currentElement == Constants.category {
-			self.category?.append(string)
+			self.dateUpdated.append(string)
 		} else if self.currentElement == Constants.content {
-			self.content?.append(string)
+			self.content.append(string)
 		}
 	}
 	
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 		if elementName == Constants.content {
-			guard let title = self.title, let dateUpdatedString = self.dateUpdated, let dateUpdated = self.formatISO8601Date(dateString: dateUpdatedString), let category = self.category, let content = self.content, let contentURLString = self.parseURL(.contentURL, fromContent: content) else {
+			guard let dateUpdated = self.formatISO8601Date(dateString: self.dateUpdated), let contentURLString = self.parseURL(.contentURL, fromContent: content) else {
 				self.resetParserVars()
 				print("Received bad data or parsing logic failed, skipping creation of feed item")
 				return
@@ -136,6 +138,8 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			//we want to know if this is nil, we will use a default thumb if not
 			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: content)
 			let newFeedItem = FeedItem(title: title, dateUpdated: dateUpdated, category: category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
+			print("title:\(self.title)")
+			dump(newFeedItem)
 			self.parsedFeedItems.append(newFeedItem)
 			self.resetParserVars()
 		}
