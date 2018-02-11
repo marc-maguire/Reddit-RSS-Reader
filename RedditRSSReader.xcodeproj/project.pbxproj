@@ -23,6 +23,7 @@
 		921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8612030A05800A7B5D5 /* ContentViewController.swift */; };
 		921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */; };
 		921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8652030B7DE00A7B5D5 /* FeedItem.swift */; };
+		921DC86D2030BFBC00A7B5D5 /* RSSDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		921DC8612030A05800A7B5D5 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
 		921DC8652030B7DE00A7B5D5 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSDataFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,8 @@
 		921DC82B20309D9E00A7B5D5 /* RedditRSSReader */ = {
 			isa = PBXGroup;
 			children = (
+				921DC83A20309D9E00A7B5D5 /* Info.plist */,
+				921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */,
 				921DC86B2030BF2600A7B5D5 /* Supporting Files */,
 				921DC8682030BEB700A7B5D5 /* View Controllers */,
 				921DC86A2030BEEE00A7B5D5 /* Models */,
@@ -175,7 +179,6 @@
 			children = (
 				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
 				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
-				921DC83A20309D9E00A7B5D5 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			files = (
 				921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */,
 				921DC85C20309FDB00A7B5D5 /* RSSTabBarController.swift in Sources */,
+				921DC86D2030BFBC00A7B5D5 /* RSSDataFetcher.swift in Sources */,
 				921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
 				921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
@@ -509,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2L6K3A6G3C;
 				INFOPLIST_FILE = RedditRSSReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magu.RedditRSSReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -526,7 +530,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2L6K3A6G3C;
 				INFOPLIST_FILE = RedditRSSReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magu.RedditRSSReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
