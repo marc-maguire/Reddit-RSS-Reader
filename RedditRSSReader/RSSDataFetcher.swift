@@ -39,31 +39,38 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		static let dateUpdated = "updated"
 		static let category = "category"
 		static let content = "content"
+		static let queue = "XMLParsingQueue"
 	}
 	
 	func refreshRSSFeed(completion: @escaping (([FeedItem])->())) {
 		
-		self.downloadRSSFeeds(fromSource: .reddit) { data, error in
-			guard error == nil, let data = data else {
-				completion([])
-				return
-			}
-			let parser = XMLParser(data: data)
-			parser.delegate = self
-			self.parserDidFinishParsingEvent = { () in
-				completion(self.parsedFeedItems)
-			}
-			//the parser is synchronus, make sure you are on a background thread
-			if !parser.parse() {
-				print("parser failed during processing")
-				completion([])
+		//we need a queue so that our Alamofire request will return to the same queue that our xml parser will parse on and not the main thread
+		let queue: DispatchQueue = DispatchQueue(label: Constants.queue, qos: .userInitiated, target: nil)
+		queue.async {
+			self.downloadRSSFeeds(fromSource: .reddit, queue: queue) { data, error in
+				guard error == nil, let data = data else {
+					completion([])
+					return
+				}
+				let parser = XMLParser(data: data)
+				parser.delegate = self
+				self.parserDidFinishParsingEvent = { () in
+					DispatchQueue.main.async {
+						completion(self.parsedFeedItems)
+					}
+				}
+				//the parser is synchronus, make sure you are on a background thread
+				if !parser.parse() {
+					print("parser failed during processing")
+					completion([])
+				}
 			}
 		}
 	}
 	
-	func downloadRSSFeeds(fromSource: DownloadSource, completion: @escaping (_ data: Data?, _ error: Error?) ->()) {
+	func downloadRSSFeeds(fromSource: DownloadSource, queue: DispatchQueue, completion: @escaping (_ data: Data?, _ error: Error?) ->()) {
 		// Fetch Request
-		Alamofire.request(fromSource.rawValue, method: .get).validate(statusCode: 200..<300).responseData { response in
+		Alamofire.request(fromSource.rawValue, method: .get).validate(statusCode: 200..<300).responseData(queue: queue) { response in
 			switch response.result {
 			case .success:
 				completion(response.data, response.error)
