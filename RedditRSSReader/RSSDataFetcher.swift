@@ -9,18 +9,54 @@
 import Foundation
 import Alamofire
 
-class RSSDataFetcher {
+class RSSDataFetcher: NSObject, XMLParserDelegate {
 	
-	func refreshRSSFeed(completion: @escaping (()->([FeedItem]))) {
+	enum DownloadSource: String {
+		case reddit = "https://www.reddit.com/hot/.rss"
+	}
+	
+	func refreshRSSFeed(completion: @escaping (([FeedItem])->())) {
 		
-		// Fetch Request
-		Alamofire.request("https://www.reddit.com/hot/.rss", method: .get).validate(statusCode: 200..<300).responseData { response in
-			if (response.result.error == nil) {
-				debugPrint("HTTP Response Body: \(response.data)")
+		self.downloadRSSFeeds(fromSource: .reddit) { data, error in
+			guard error == nil, let data = data else {
+				completion([])
+				return
 			}
-			else {
-				debugPrint("HTTP Request failed: \(response.result.error)")
+			let parser = XMLParser(data: data)
+			parser.delegate = self
+		}
+		
+	}
+	
+	func downloadRSSFeeds(fromSource: DownloadSource, completion: @escaping (_ data: Data?, _ error: Error?) ->()) {
+		// Fetch Request
+		Alamofire.request(fromSource.rawValue, method: .get).validate(statusCode: 200..<300).responseData { response in
+			switch response.result {
+			case .success:
+				completion(response.data, response.error)
+			case .failure:
+				print("Reddit XML download failed: \(String(describing: response.result.error))")
+				completion(nil, nil)
 			}
 		}
 	}
+	
+	//MARK: - XML Parser Delegate
+	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+		//lets start
+	}
+	
+	func parser(_ parser: XMLParser, foundCharacters string: String) {
+		//lets build
+	}
+	
+	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+		//keep it up
+	}
+	
+	func parserDidEndDocument(_ parser: XMLParser) {
+		//notify the boss
+	}
+	
+	
 }
