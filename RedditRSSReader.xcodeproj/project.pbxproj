@@ -112,20 +112,11 @@
 		921DC82B20309D9E00A7B5D5 /* RedditRSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
-				921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */,
-				921DC8652030B7DE00A7B5D5 /* FeedItem.swift */,
-				921DC83220309D9E00A7B5D5 /* Main.storyboard */,
-				921DC85320309EE500A7B5D5 /* FeedItems.storyboard */,
-				921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */,
+				921DC86B2030BF2600A7B5D5 /* Supporting Files */,
+				921DC8682030BEB700A7B5D5 /* View Controllers */,
+				921DC86A2030BEEE00A7B5D5 /* Models */,
+				921DC8692030BECD00A7B5D5 /* Views */,
 				921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */,
-				921DC85520309EF400A7B5D5 /* PinnedItems.storyboard */,
-				921DC85920309FB500A7B5D5 /* PinnedItemsViewController.swift */,
-				921DC8612030A05800A7B5D5 /* ContentViewController.swift */,
-				921DC85F2030A04600A7B5D5 /* Content.storyboard */,
-				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
-				921DC83720309D9E00A7B5D5 /* LaunchScreen.storyboard */,
-				921DC83A20309D9E00A7B5D5 /* Info.plist */,
 			);
 			path = RedditRSSReader;
 			sourceTree = "<group>";
@@ -146,6 +137,47 @@
 				3FE723275128EBEC91A34E11 /* Pods_RedditRSSReader.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		921DC8682030BEB700A7B5D5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */,
+				921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */,
+				921DC85920309FB500A7B5D5 /* PinnedItemsViewController.swift */,
+				921DC8612030A05800A7B5D5 /* ContentViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		921DC8692030BECD00A7B5D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				921DC83720309D9E00A7B5D5 /* LaunchScreen.storyboard */,
+				921DC83220309D9E00A7B5D5 /* Main.storyboard */,
+				921DC85320309EE500A7B5D5 /* FeedItems.storyboard */,
+				921DC85520309EF400A7B5D5 /* PinnedItems.storyboard */,
+				921DC85F2030A04600A7B5D5 /* Content.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		921DC86A2030BEEE00A7B5D5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				921DC8652030B7DE00A7B5D5 /* FeedItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		921DC86B2030BF2600A7B5D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
+				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
+				921DC83A20309D9E00A7B5D5 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
