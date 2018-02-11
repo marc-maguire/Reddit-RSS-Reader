@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Pinned Items View Controller-->
+        <scene sceneID="fMi-aP-VJC">
+            <objects>
+                <viewController storyboardIdentifier="PinnedItemsViewController" id="jR9-MU-JYC" customClass="PinnedItemsViewController" customModule="RedditRSSReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RLE-pL-4pv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6Vj-4j-WNe">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeedItemTableViewCell" id="Tqd-xx-Pha">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tqd-xx-Pha" id="JBH-1P-E7M">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="L5R-vK-eMu" kind="show" identifier="ContentViewControllerSegue" id="jLr-PE-YOi"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6Vj-4j-WNe" firstAttribute="leading" secondItem="RD7-v5-ggn" secondAttribute="leading" id="0Sr-yo-kDs"/>
+                            <constraint firstItem="6Vj-4j-WNe" firstAttribute="trailing" secondItem="RD7-v5-ggn" secondAttribute="trailing" id="YCF-RR-Xwj"/>
+                            <constraint firstItem="6Vj-4j-WNe" firstAttribute="top" secondItem="RD7-v5-ggn" secondAttribute="top" id="a3X-Xf-91f"/>
+                            <constraint firstAttribute="bottom" secondItem="6Vj-4j-WNe" secondAttribute="bottom" id="ce9-Gb-uXI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RD7-v5-ggn"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="6Vj-4j-WNe" id="3Ao-zF-82M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AY8-cv-q5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="195"/>
+        </scene>
+        <!--ContentViewController-->
+        <scene sceneID="oIu-a4-kMG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Content" referencedIdentifier="ContentViewController" id="L5R-vK-eMu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pPx-C9-sWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1139" y="172"/>
+        </scene>
+    </scenes>
+</document>

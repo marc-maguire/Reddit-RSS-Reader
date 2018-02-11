@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */; };
-		921DC82F20309D9E00A7B5D5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC82E20309D9E00A7B5D5 /* FirstViewController.swift */; };
-		921DC83120309D9E00A7B5D5 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC83020309D9E00A7B5D5 /* SecondViewController.swift */; };
 		921DC83420309D9E00A7B5D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC83220309D9E00A7B5D5 /* Main.storyboard */; };
 		921DC83620309D9E00A7B5D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 921DC83520309D9E00A7B5D5 /* Assets.xcassets */; };
 		921DC83920309D9E00A7B5D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC83720309D9E00A7B5D5 /* LaunchScreen.storyboard */; };
 		921DC84420309D9F00A7B5D5 /* RedditRSSReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC84320309D9F00A7B5D5 /* RedditRSSReaderTests.swift */; };
+		921DC85020309DDD00A7B5D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921DC84F20309DDD00A7B5D5 /* WebKit.framework */; };
+		921DC85420309EE500A7B5D5 /* FeedItems.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC85320309EE500A7B5D5 /* FeedItems.storyboard */; };
+		921DC85620309EF400A7B5D5 /* PinnedItems.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC85520309EF400A7B5D5 /* PinnedItems.storyboard */; };
+		921DC85820309FA100A7B5D5 /* FeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */; };
+		921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC85920309FB500A7B5D5 /* PinnedItemsViewController.swift */; };
+		921DC85C20309FDB00A7B5D5 /* RSSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */; };
+		921DC8602030A04600A7B5D5 /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921DC85F2030A04600A7B5D5 /* Content.storyboard */; };
+		921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8612030A05800A7B5D5 /* ContentViewController.swift */; };
+		921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +36,6 @@
 /* Begin PBXFileReference section */
 		921DC82920309D9E00A7B5D5 /* RedditRSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditRSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		921DC82E20309D9E00A7B5D5 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		921DC83020309D9E00A7B5D5 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		921DC83320309D9E00A7B5D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		921DC83520309D9E00A7B5D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		921DC83820309D9E00A7B5D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +43,15 @@
 		921DC83F20309D9F00A7B5D5 /* RedditRSSReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditRSSReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		921DC84320309D9F00A7B5D5 /* RedditRSSReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditRSSReaderTests.swift; sourceTree = "<group>"; };
 		921DC84520309D9F00A7B5D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		921DC84F20309DDD00A7B5D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		921DC85320309EE500A7B5D5 /* FeedItems.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedItems.storyboard; sourceTree = "<group>"; };
+		921DC85520309EF400A7B5D5 /* PinnedItems.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PinnedItems.storyboard; sourceTree = "<group>"; };
+		921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsViewController.swift; sourceTree = "<group>"; };
+		921DC85920309FB500A7B5D5 /* PinnedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedItemsViewController.swift; sourceTree = "<group>"; };
+		921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSTabBarController.swift; sourceTree = "<group>"; };
+		921DC85F2030A04600A7B5D5 /* Content.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Content.storyboard; sourceTree = "<group>"; };
+		921DC8612030A05800A7B5D5 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921DC85020309DDD00A7B5D5 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +79,7 @@
 				921DC82B20309D9E00A7B5D5 /* RedditRSSReader */,
 				921DC84220309D9F00A7B5D5 /* RedditRSSReaderTests */,
 				921DC82A20309D9E00A7B5D5 /* Products */,
+				921DC84E20309DDC00A7B5D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,9 +96,15 @@
 			isa = PBXGroup;
 			children = (
 				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
-				921DC82E20309D9E00A7B5D5 /* FirstViewController.swift */,
-				921DC83020309D9E00A7B5D5 /* SecondViewController.swift */,
+				921DC85B20309FDB00A7B5D5 /* RSSTabBarController.swift */,
 				921DC83220309D9E00A7B5D5 /* Main.storyboard */,
+				921DC85320309EE500A7B5D5 /* FeedItems.storyboard */,
+				921DC85720309FA100A7B5D5 /* FeedItemsViewController.swift */,
+				921DC8632030A43500A7B5D5 /* FeedItemTableViewCell.swift */,
+				921DC85520309EF400A7B5D5 /* PinnedItems.storyboard */,
+				921DC85920309FB500A7B5D5 /* PinnedItemsViewController.swift */,
+				921DC8612030A05800A7B5D5 /* ContentViewController.swift */,
+				921DC85F2030A04600A7B5D5 /* Content.storyboard */,
 				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
 				921DC83720309D9E00A7B5D5 /* LaunchScreen.storyboard */,
 				921DC83A20309D9E00A7B5D5 /* Info.plist */,
@@ -97,6 +119,14 @@
 				921DC84520309D9F00A7B5D5 /* Info.plist */,
 			);
 			path = RedditRSSReaderTests;
+			sourceTree = "<group>";
+		};
+		921DC84E20309DDC00A7B5D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				921DC84F20309DDD00A7B5D5 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +213,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				921DC83920309D9E00A7B5D5 /* LaunchScreen.storyboard in Resources */,
+				921DC85420309EE500A7B5D5 /* FeedItems.storyboard in Resources */,
+				921DC8602030A04600A7B5D5 /* Content.storyboard in Resources */,
 				921DC83620309D9E00A7B5D5 /* Assets.xcassets in Resources */,
+				921DC85620309EF400A7B5D5 /* PinnedItems.storyboard in Resources */,
 				921DC83420309D9E00A7B5D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,9 +235,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				921DC83120309D9E00A7B5D5 /* SecondViewController.swift in Sources */,
+				921DC8622030A05800A7B5D5 /* ContentViewController.swift in Sources */,
+				921DC85C20309FDB00A7B5D5 /* RSSTabBarController.swift in Sources */,
+				921DC8642030A43500A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
+				921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
-				921DC82F20309D9E00A7B5D5 /* FirstViewController.swift in Sources */,
+				921DC85820309FA100A7B5D5 /* FeedItemsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +394,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2L6K3A6G3C;
 				INFOPLIST_FILE = RedditRSSReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magu.RedditRSSReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -372,7 +410,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2L6K3A6G3C;
 				INFOPLIST_FILE = RedditRSSReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magu.RedditRSSReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
