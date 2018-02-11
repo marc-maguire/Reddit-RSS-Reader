@@ -15,10 +15,10 @@ class FeedItem {
 	let dateUpdated: Date
 	let category: String
 	let thumbnail: UIImage?
-	let thumbnailURLString: String
+	let thumbnailURLString: String?
 	let contentURLString: String
 	
-	init(title: String, dateUpdated: Date, category: String, thumbnailURLString: String, contentURLString: String) {
+	init(title: String, dateUpdated: Date, category: String, thumbnailURLString: String?, contentURLString: String) {
 		self.title = title
 		self.dateUpdated = dateUpdated
 		self.category = category
