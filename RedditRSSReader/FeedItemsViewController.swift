@@ -20,7 +20,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return self.feedItems.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

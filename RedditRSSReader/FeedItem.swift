@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 class FeedItem {
-	private let title: String
-	private let dateUpdated: Date
-	private let category: String
-	private let thumbnail: UIImage?
-	private let thumbnailURLString: String
-	private let contentURLString: String
+	
+	let title: String
+	let dateUpdated: Date
+	let category: String
+	let thumbnail: UIImage?
+	let thumbnailURLString: String
+	let contentURLString: String
 	
 	init(title: String, dateUpdated: Date, category: String, thumbnailURLString: String, contentURLString: String) {
 		self.title = title

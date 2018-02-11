@@ -24,7 +24,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	//MARK: - Table View Data Source
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return self.pinnedFeedItems.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
