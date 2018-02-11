@@ -9,6 +9,8 @@
 import UIKit
 
 class RSSTabBarController: UITabBarController {
+	
+	private var feedItems: [FeedItem] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,14 @@ class RSSTabBarController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	func getFeedItems() -> [FeedItem]? {
+		return self.feedItems
+	}
+	
+	func setFeedItems(feedItems: [FeedItem]) {
+		self.feedItems = feedItems
+	}
 
     /*
     // MARK: - Navigation

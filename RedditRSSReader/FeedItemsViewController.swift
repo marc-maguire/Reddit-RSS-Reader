@@ -11,6 +11,7 @@ import UIKit
 class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
+	private var feedItems: [FeedItem] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

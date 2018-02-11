@@ -11,6 +11,7 @@ import UIKit
 class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	@IBOutlet weak private var tableView: UITableView!
+	private var pinnedFeedItems: [FeedItem] = []
 	
 	
     override func viewDidLoad() {
