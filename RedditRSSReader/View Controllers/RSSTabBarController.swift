@@ -24,8 +24,8 @@ class RSSTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
 	
-	func setFeedItems(feedItems: [FeedItem]) {
-		self.feedItems = feedItems
+	func appendFeedItem(feedItem: FeedItem) {
+		self.feedItems.append(feedItem)
 	}
 	
 	func setSelectedContentURL(string: String) {

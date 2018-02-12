@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FeedItemCellDelegate{
+	func feedItemCellButtonClicked(atIndexPath: IndexPath)
+}
+
 class FeedItemTableViewCell: UITableViewCell {
 
 	@IBOutlet weak private var thumbnailImageView: UIImageView!
@@ -21,7 +25,18 @@ class FeedItemTableViewCell: UITableViewCell {
 	@IBOutlet weak private var pinnedButton: UIButton!
 	
 	@IBAction func pinnedbuttonPressed(_ sender: UIButton) {
+		//change button state to the opposite of what it was
+		self.toggleButtonSelectedState(isSelected: self.pinnedButton.isSelected)
+		self.delegate?.feedItemCellButtonClicked(atIndexPath: self.indexPath)
 	}
+	
+	func toggleButtonSelectedState(isSelected: Bool) {
+		self.pinnedButton.isSelected = !isSelected
+	}
+	
+	var indexPath: IndexPath!
+	
+	var delegate: FeedItemCellDelegate?
 	
 	func configureCell(thumbnailImage: String, title: String, dateUpdated: String, category: String) {
 //		self.thumbnailImageView.image = thumbnailImage

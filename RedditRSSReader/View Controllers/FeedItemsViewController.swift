@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FeedItemCellDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
 	private var feedItems: [FeedItem] = []
@@ -36,6 +36,8 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FeedItemTableViewCell.self), for: indexPath)
 		guard let feedCell = cell as? FeedItemTableViewCell else { return cell }
+		feedCell.delegate = self
+		feedCell.indexPath = indexPath
 		let feedItem = self.feedItems[indexPath.row]
 		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category)
 		return cell
@@ -46,6 +48,15 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.setSelectedContentURL(string: selectedItem.contentURLString)
 		self.performSegue(withIdentifier: SegueConstants.contentViewController, sender: self)
+	}
+	
+	//MARK: - FeedItemCellDelegate
+	
+	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
+		let feedItem = self.feedItems[atIndexPath.row]
+		//save to coreData / move to next VC
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
+		rSSTabBar.appendFeedItem(feedItem: feedItem)
 	}
     // MARK: - Navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
