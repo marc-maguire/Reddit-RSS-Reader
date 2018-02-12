@@ -19,8 +19,9 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		return refreshControl
 	}()
 	
-	private enum SegueConstants {
-		static let contentViewController = "ContentViewControllerSegue"
+	private enum Constants {
+		static let contentViewControllerSegue = "ContentViewControllerSegue"
+		static let feedItems = "Feed Items"
 	}
 	
 	override func viewDidLoad() {
@@ -29,6 +30,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		self.tableView.delegate = self
 		self.tableView.addSubview(self.refreshControl)
 		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
+		self.navigationItem.title = Constants.feedItems
 		self.refreshFeed() {
 			print("feed refreshed")
 		}
@@ -97,7 +99,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		let selectedItem = self.feedItems[indexPath.row]
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.setSelectedContentURL(string: selectedItem.contentURLString)
-		self.performSegue(withIdentifier: SegueConstants.contentViewController, sender: self)
+		self.performSegue(withIdentifier: Constants.contentViewControllerSegue, sender: self)
 	}
 	
 	//MARK: - FeedItemCellDelegate

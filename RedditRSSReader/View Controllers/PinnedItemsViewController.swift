@@ -18,8 +18,9 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 	}
 	
-	private enum SegueConstants {
-		static let contentViewController = "ContentViewControllerSegue"
+	private enum Constants {
+		static let contentViewControllerSegue = "ContentViewControllerSegue"
+		static let pinnedItems = "Pinned Items"
 	}
 	
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
 		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
+		self.navigationItem.title = Constants.pinnedItems
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +63,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		let selectedItem = self.pinnedFeedItems[indexPath.row]
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.setSelectedContentURL(string: selectedItem.contentURLString)
-		self.performSegue(withIdentifier: SegueConstants.contentViewController, sender: self)
+		self.performSegue(withIdentifier: Constants.contentViewControllerSegue, sender: self)
 	}
 	
 	//MARK: - FeedItemCellDelegate
