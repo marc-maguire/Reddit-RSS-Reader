@@ -13,6 +13,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	@IBOutlet weak private var tableView: UITableView!
 	private var pinnedFeedItems: [FeedItem] = [] {
 		didSet {
+			self.pinnedFeedItems = self.pinnedFeedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.tableView.reloadData()
 		}
 	}

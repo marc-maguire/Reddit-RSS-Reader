@@ -42,12 +42,14 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		}
 		//could this be done better?
 		//does cover case where they don't match at all
+		self.unpinAll()
 		for feedItem in self.feedItems {
 			for pinnedItem in pinnedItems {
 				if feedItem.contentURLString == pinnedItem.contentURLString {
-					feedItem.isPinned = pinnedItem.isPinned
+					feedItem.isPinned = !pinnedItem.isPinned
 				}
 			}
+			self.tableView.reloadData()
 		}
 	}
 	
@@ -98,6 +100,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
 		let feedItem = self.feedItems[atIndexPath.row]
+		guard !feedItem.isPinned == true else { return }
 		feedItem.isPinned = true
 		//save to coreData / move to next VC
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
