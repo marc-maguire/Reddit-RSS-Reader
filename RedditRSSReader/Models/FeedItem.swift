@@ -17,6 +17,7 @@ class FeedItem {
 	let thumbnail: UIImage?
 	let thumbnailURLString: String?
 	let contentURLString: String
+	var isPinned: Bool = false
 	
 	init(title: String, dateUpdated: String, category: String, thumbnailURLString: String?, contentURLString: String) {
 		self.title = title

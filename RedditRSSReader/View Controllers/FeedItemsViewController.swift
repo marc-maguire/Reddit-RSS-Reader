@@ -28,6 +28,33 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			self.tableView.reloadData()
 		}
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
+			self.unpinAll()
+			return
+		}
+		//could this be done better?
+		for feedItem in self.feedItems {
+			for pinnedItem in pinnedItems {
+				if feedItem.contentURLString == pinnedItem.contentURLString {
+					feedItem.isPinned = pinnedItem.isPinned
+				}
+			}
+		}
+	}
+	
+	private func unpinAll() {
+		for item in self.feedItems {
+			item.isPinned = false
+		}
+		self.tableView.reloadData()
+	}
+	
+	private func syncUnpinning() {
+		
+	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.feedItems.count
@@ -39,7 +66,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		feedCell.delegate = self
 		feedCell.indexPath = indexPath
 		let feedItem = self.feedItems[indexPath.row]
-		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category)
+		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned)
 		return cell
 	}
 	
@@ -54,6 +81,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
 		let feedItem = self.feedItems[atIndexPath.row]
+		feedItem.isPinned = true
 		//save to coreData / move to next VC
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.appendFeedItem(feedItem: feedItem)
