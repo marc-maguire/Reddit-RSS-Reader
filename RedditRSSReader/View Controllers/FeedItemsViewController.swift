@@ -13,6 +13,12 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	@IBOutlet weak private var tableView: UITableView!
 	private var feedItems: [FeedItem] = []
 	
+	lazy var refreshControl: UIRefreshControl = {
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action: #selector(FeedItemsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+		return refreshControl
+	}()
+	
 	private enum SegueConstants {
 		static let contentViewController = "ContentViewControllerSegue"
 	}
@@ -21,11 +27,10 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewDidLoad()
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
+		self.tableView.addSubview(self.refreshControl)
 		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
-		let downloader = RSSDataFetcher()
-		downloader.refreshRSSFeed { feedItems in
-			self.feedItems = feedItems
-			self.tableView.reloadData()
+		self.refreshFeed() {
+			print("feed refreshed")
 		}
 	}
 	
@@ -36,6 +41,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			return
 		}
 		//could this be done better?
+		//does cover case where they don't match at all
 		for feedItem in self.feedItems {
 			for pinnedItem in pinnedItems {
 				if feedItem.contentURLString == pinnedItem.contentURLString {
@@ -45,15 +51,26 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		}
 	}
 	
+	@objc func handleRefresh(refreshControl: UIRefreshControl) {
+		self.refreshFeed {
+			self.refreshControl.endRefreshing()
+		}
+	}
+	
+	private func refreshFeed(completion: @escaping ()->()) {
+		let downloader = RSSDataFetcher()
+		downloader.refreshRSSFeed { feedItems in
+			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
+			self.tableView.reloadData()
+			completion()
+		}
+	}
+	
 	private func unpinAll() {
 		for item in self.feedItems {
 			item.isPinned = false
 		}
 		self.tableView.reloadData()
-	}
-	
-	private func syncUnpinning() {
-		
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,11 +103,4 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.appendFeedItem(feedItem: feedItem)
 	}
-    // MARK: - Navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//		guard let destinationVC = segue.destination as? ContentViewController else { return }
-//
-//         Get the new view controller using segue.destinationViewController.
-//         Pass the selected object to the new view controller.
-//    }
 }
