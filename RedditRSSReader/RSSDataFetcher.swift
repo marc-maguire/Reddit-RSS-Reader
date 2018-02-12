@@ -20,11 +20,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	private var dateUpdated: String = ""
 	private var category: String = ""
 	private var content: String = ""
-	private var thumbnailURLString: String = ""
-	private var contentURLString: String = ""
 	
-	
-	//add alternate sources
 	enum DownloadSource: String {
 		case reddit = "https://www.reddit.com/hot/.rss"
 	}
@@ -85,8 +81,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		self.title = ""
 		self.dateUpdated = ""
 		self.category = ""
-		self.thumbnailURLString = ""
-		self.contentURLString = ""
+		self.content = ""
 	}
 	
 	func parseURL(_ URLType: ParseTerms, fromContent content: String) -> String? {
@@ -97,7 +92,18 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			if segment.contains(URLType.rawValue) {
 				parsedURL = segment.components(separatedBy: "=").last
 				let parsedURL1 = parsedURL?.replacingOccurrences(of: "\\", with: "")
-				parsedURL = parsedURL1?.replacingOccurrences(of: ">", with: "")
+				let parsedURL2 = parsedURL1?.replacingOccurrences(of: "\"", with: "")
+				parsedURL = parsedURL2?.replacingOccurrences(of: ">", with: "")
+				
+				break
+			}
+		}
+		guard var unwrappedParsedURL = parsedURL else { return parsedURL }
+		for char in unwrappedParsedURL {
+			if char != "h" {
+				unwrappedParsedURL.removeFirst()
+			} else if char == "h" {
+				parsedURL = unwrappedParsedURL
 				break
 			}
 		}
@@ -133,16 +139,15 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 		if elementName == Constants.content {
-			guard let dateUpdated = self.formatISO8601Date(dateString: self.dateUpdated), let contentURLString = self.parseURL(.contentURL, fromContent: content) else {
+			guard let dateUpdated = self.formatISO8601Date(dateString: self.dateUpdated), let contentURLString = self.parseURL(.contentURL, fromContent: self.content) else {
 				self.resetParserVars()
 				print("Received bad data or parsing logic failed, skipping creation of feed item")
 				return
 			}
+			
 			//we want to know if this is nil, we will use a default thumb if not
-			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: content)
-			let newFeedItem = FeedItem(title: title, dateUpdated: dateUpdated, category: category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
-			print("title:\(self.title)")
-			dump(newFeedItem)
+			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: self.content)
+			let newFeedItem = FeedItem(title: self.title, dateUpdated: dateUpdated, category: self.category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
 			self.parsedFeedItems.append(newFeedItem)
 			self.resetParserVars()
 		}

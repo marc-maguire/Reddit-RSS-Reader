@@ -11,6 +11,7 @@ import UIKit
 class RSSTabBarController: UITabBarController {
 	
 	private var feedItems: [FeedItem] = []
+	private var selectedContentURL: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +24,16 @@ class RSSTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
 	
-	func getFeedItems() -> [FeedItem]? {
-		return self.feedItems
-	}
-	
 	func setFeedItems(feedItems: [FeedItem]) {
 		self.feedItems = feedItems
+	}
+	
+	func setSelectedContentURL(string: String) {
+		self.selectedContentURL = string
+	}
+	
+	func getSelectedContentURL() -> String? {
+		return self.selectedContentURL
 	}
 
     /*

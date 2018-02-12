@@ -13,6 +13,10 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	@IBOutlet weak private var tableView: UITableView!
 	private var feedItems: [FeedItem] = []
 	
+	private enum SegueConstants {
+		static let contentViewController = "ContentViewControllerSegue"
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.tableView.dataSource = self
@@ -37,14 +41,17 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		return cell
 	}
 	
-    /*
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedItem = self.feedItems[indexPath.row]
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
+		rSSTabBar.setSelectedContentURL(string: selectedItem.contentURLString)
+		self.performSegue(withIdentifier: SegueConstants.contentViewController, sender: self)
+	}
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//		guard let destinationVC = segue.destination as? ContentViewController else { return }
+//
+//         Get the new view controller using segue.destinationViewController.
+//         Pass the selected object to the new view controller.
+//    }
 }
