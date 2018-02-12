@@ -17,6 +17,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewDidLoad()
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
+		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
 		let downloader = RSSDataFetcher()
 		downloader.refreshRSSFeed { feedItems in
 			self.feedItems = feedItems
@@ -30,6 +31,9 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FeedItemTableViewCell.self), for: indexPath)
+		guard let feedCell = cell as? FeedItemTableViewCell else { return cell }
+		let feedItem = self.feedItems[indexPath.row]
+		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category)
 		return cell
 	}
 	

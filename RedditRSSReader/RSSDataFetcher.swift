@@ -104,10 +104,11 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		return parsedURL
 	}
 	
-	func formatISO8601Date(dateString: String) -> Date? {
+	func formatISO8601Date(dateString: String) -> String? {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
-		return dateFormatter.date(from: dateString)
+		guard let date = dateFormatter.date(from: dateString) else { return nil }
+		return dateFormatter.string(from: date)
 	}
 	
 	//MARK: - XML Parser Delegate

@@ -23,8 +23,8 @@ class FeedItemTableViewCell: UITableViewCell {
 	@IBAction func pinnedbuttonPressed(_ sender: UIButton) {
 	}
 	
-	func configureCell(thumbnailImage: UIImage, title: String, dateUpdated: String, category: String) {
-		self.thumbnailImageView.image = thumbnailImage
+	func configureCell(thumbnailImage: String, title: String, dateUpdated: String, category: String) {
+//		self.thumbnailImageView.image = thumbnailImage
 		self.feedTitleLabel.text = title
 		self.dateUpdatedLabel.text = dateUpdated
 		self.feedCategoryLabel.text = category
