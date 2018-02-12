@@ -28,6 +28,15 @@ class RSSTabBarController: UITabBarController {
 		self.feedItems.append(feedItem)
 	}
 	
+	func removeFeedItem(atIndex: IndexPath) {
+		self.feedItems.remove(at: atIndex.row)
+	}
+	
+	func getFeedItems() -> [FeedItem]? {
+		guard !self.feedItems.isEmpty else { return nil }
+		return self.feedItems
+	}
+	
 	func setSelectedContentURL(string: String) {
 		self.selectedContentURL = string
 	}
