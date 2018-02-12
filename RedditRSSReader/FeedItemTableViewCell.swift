@@ -38,7 +38,7 @@ class FeedItemTableViewCell: UITableViewCell {
 	
 	var delegate: FeedItemCellDelegate?
 	
-	func configureCell(thumbnailImage: String, title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
+	func configureCell(title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
 		
 		self.feedTitleLabel.text = title
 		self.dateUpdatedLabel.text = dateUpdated

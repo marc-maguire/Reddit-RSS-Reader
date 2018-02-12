@@ -87,11 +87,11 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		feedCell.indexPath = indexPath
 		let feedItem = self.feedItems[indexPath.row]
 		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
+			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
 			return cell
 		}
 		let image = UIImage(data: data)
-		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
+		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
 		return cell
 	}
 	
