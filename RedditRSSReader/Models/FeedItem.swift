@@ -14,7 +14,7 @@ class FeedItem {
 	let title: String
 	let dateUpdated: String
 	let category: String
-	let thumbnail: UIImage?
+	var thumbnail: Data?
 	let thumbnailURLString: String?
 	let contentURLString: String
 	var isPinned: Bool = false

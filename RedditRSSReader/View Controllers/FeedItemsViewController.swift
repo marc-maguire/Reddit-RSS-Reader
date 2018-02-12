@@ -13,7 +13,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	@IBOutlet weak private var tableView: UITableView!
 	private var feedItems: [FeedItem] = []
 	
-	lazy var refreshControl: UIRefreshControl = {
+	lazy private var refreshControl: UIRefreshControl = {
 		let refreshControl = UIRefreshControl()
 		refreshControl.addTarget(self, action: #selector(FeedItemsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
 		return refreshControl
@@ -41,7 +41,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			return
 		}
 		//could this be done better?
-		//does cover case where they don't match at all
 		self.unpinAll()
 		for feedItem in self.feedItems {
 			for pinnedItem in pinnedItems {
@@ -85,7 +84,12 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		feedCell.delegate = self
 		feedCell.indexPath = indexPath
 		let feedItem = self.feedItems[indexPath.row]
-		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned)
+		guard let data = feedItem.thumbnail else {
+			feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
+			return cell
+		}
+		let image = UIImage(data: data)
+		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
 		return cell
 	}
 	

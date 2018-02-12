@@ -38,12 +38,16 @@ class FeedItemTableViewCell: UITableViewCell {
 	
 	var delegate: FeedItemCellDelegate?
 	
-	func configureCell(thumbnailImage: String, title: String, dateUpdated: String, category: String, isSelected: Bool) {
-//		self.thumbnailImageView.image = thumbnailImage
+	func configureCell(thumbnailImage: String, title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
+		
 		self.feedTitleLabel.text = title
 		self.dateUpdatedLabel.text = dateUpdated
 		self.feedCategoryLabel.text = category
 		self.pinnedButton.isSelected = isSelected
+		if let image = image {
+			self.thumbnailImageView.image = image
+		}
+		
 	}
 	
     override func awakeFromNib() {

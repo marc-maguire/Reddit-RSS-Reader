@@ -31,7 +31,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="3GR-GG-afs">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="3GR-GG-afs">
                         <rect key="frame" x="8" y="6.5" width="59" height="62"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="3GR-GG-afs" secondAttribute="height" multiplier="56:59" id="EUL-pX-paf"/>

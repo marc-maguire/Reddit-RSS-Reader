@@ -48,8 +48,12 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		feedCell.delegate = self
 		feedCell.indexPath = indexPath
 		let feedItem = self.pinnedFeedItems[indexPath.row]
-		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned)
-		feedCell.setSelected(true, animated: false)
+		guard let data = feedItem.thumbnail else {
+			feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
+			return cell
+		}
+		let image = UIImage(data: data)
+		feedCell.configureCell(thumbnailImage: "hello", title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
 		return cell
 	}
 	

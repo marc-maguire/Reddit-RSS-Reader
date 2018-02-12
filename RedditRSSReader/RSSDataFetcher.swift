@@ -148,6 +148,12 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			//we want to know if this is nil, we will use a default thumb if not
 			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: self.content)
 			let newFeedItem = FeedItem(title: self.title, dateUpdated: dateUpdated, category: self.category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
+			guard let thumbURL = thumbURLString, let url = URL(string: thumbURL), let data = try? Data(contentsOf: url) else {
+				self.parsedFeedItems.append(newFeedItem)
+				self.resetParserVars()
+				return
+			}
+			newFeedItem.thumbnail = data
 			self.parsedFeedItems.append(newFeedItem)
 			self.resetParserVars()
 		}
