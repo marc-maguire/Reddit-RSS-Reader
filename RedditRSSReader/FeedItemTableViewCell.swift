@@ -46,6 +46,8 @@ class FeedItemTableViewCell: UITableViewCell {
 		self.pinnedButton.isSelected = isSelected
 		if let image = image {
 			self.thumbnailImageView.image = image
+		} else {
+			self.thumbnailImageView.image = UIImage(named: "first")
 		}
 		
 	}
