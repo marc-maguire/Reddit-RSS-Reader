@@ -38,20 +38,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
-			self.unpinAll()
-			return
-		}
-		//could this be done better?
-		self.unpinAll()
-		for feedItem in self.feedItems {
-			for pinnedItem in pinnedItems {
-				if feedItem.contentURLString == pinnedItem.contentURLString {
-					feedItem.isPinned = !pinnedItem.isPinned
-				}
-			}
-			self.tableView.reloadData()
-		}
+		self.syncPinnedItems()
 	}
 	
 	@objc func handleRefresh(refreshControl: UIRefreshControl) {
@@ -64,6 +51,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		let downloader = RSSDataFetcher()
 		downloader.refreshRSSFeed { feedItems in
 			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
+			self.syncPinnedItems()
 			self.tableView.reloadData()
 			completion()
 		}
@@ -73,7 +61,23 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		for item in self.feedItems {
 			item.isPinned = false
 		}
-		self.tableView.reloadData()
+	}
+	
+	private func syncPinnedItems() {
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
+			self.unpinAll()
+			return
+		}
+		//could this be done better?
+		self.unpinAll()
+		for feedItem in self.feedItems {
+			for pinnedItem in pinnedItems {
+				if feedItem.contentURLString == pinnedItem.contentURLString {
+					feedItem.isPinned = true
+				}
+			}
+			self.tableView.reloadData()
+		}
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
