@@ -11,7 +11,7 @@ import WebKit
 
 class ContentViewController: UIViewController, WKNavigationDelegate {
 
-	@IBOutlet weak var webView: WKWebView!
+	@IBOutlet weak private var webView: WKWebView!
 	private var contentURL: String? {
 		didSet {
 			guard let urlString = self.contentURL, let url = URL(string: urlString) else {
@@ -21,6 +21,8 @@ class ContentViewController: UIViewController, WKNavigationDelegate {
 			self.webView.load(urlRequest)
 		}
 	}
+	
+	//MARK: - Lifecycle
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
