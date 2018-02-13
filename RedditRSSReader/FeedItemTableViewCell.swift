@@ -38,10 +38,14 @@ class FeedItemTableViewCell: UITableViewCell {
 	
 	var delegate: FeedItemCellDelegate?
 	
+	private enum Constants {
+		static let updatedOn = "Last updated on: "
+	}
+	
 	func configureCell(title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
 		
 		self.feedTitleLabel.text = title
-		self.dateUpdatedLabel.text = dateUpdated
+		self.dateUpdatedLabel.text = Constants.updatedOn + dateUpdated
 		self.feedCategoryLabel.text = category
 		self.pinnedButton.isSelected = isSelected
 		if let image = image {
