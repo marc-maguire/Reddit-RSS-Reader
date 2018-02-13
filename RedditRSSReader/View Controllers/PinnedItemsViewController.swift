@@ -23,6 +23,8 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		static let pinnedItems = "Pinned Items"
 	}
 	
+	//MARK: - App Lifecycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.tableView.dataSource = self
@@ -61,6 +63,8 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
 		return cell
 	}
+	
+	//MARK: - Table View Delegate
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedItem = self.pinnedFeedItems[indexPath.row]

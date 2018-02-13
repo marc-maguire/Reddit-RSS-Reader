@@ -24,6 +24,8 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		static let feedItems = "Feed Items"
 	}
 	
+	//MARK: - App Lifecycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.tableView.dataSource = self
@@ -40,6 +42,8 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewWillAppear(animated)
 		self.syncPinnedItems()
 	}
+	
+	//MARK: - Refresh / Pinning
 	
 	@objc func handleRefresh(refreshControl: UIRefreshControl) {
 		self.refreshFeed {
@@ -80,6 +84,8 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		}
 	}
 	
+	//MARK: - Table View Data Source
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.feedItems.count
 	}
@@ -98,6 +104,8 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
 		return cell
 	}
+	
+	//MARK: - Table View Delegate
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedItem = self.feedItems[indexPath.row]
