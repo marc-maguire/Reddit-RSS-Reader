@@ -23,17 +23,20 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		static let pinnedItems = "Pinned Items"
 	}
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
 		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
 		self.navigationItem.title = Constants.pinnedItems
-    }
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems() else { return }
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems() else {
+			self.pinnedFeedItems.removeAll()
+			return
+		}
 		self.pinnedFeedItems = pinnedItems
 	}
 	

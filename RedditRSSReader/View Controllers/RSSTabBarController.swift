@@ -32,6 +32,18 @@ class RSSTabBarController: UITabBarController {
 		self.feedItems.remove(at: atIndex.row)
 	}
 	
+	func removeFeedItem(feedItem: FeedItem) {
+		var index = 0
+		for item in self.feedItems {
+			if item.contentURLString == feedItem.contentURLString {
+				self.feedItems.remove(at: index)
+				break
+			} else {
+				index += 1
+			}
+		}
+	}
+	
 	func getFeedItems() -> [FeedItem]? {
 		guard !self.feedItems.isEmpty else { return nil }
 		return self.feedItems

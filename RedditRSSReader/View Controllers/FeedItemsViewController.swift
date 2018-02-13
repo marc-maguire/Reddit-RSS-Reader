@@ -79,7 +79,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			self.tableView.reloadData()
 		}
 	}
-
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.feedItems.count
 	}
@@ -109,11 +109,14 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	//MARK: - FeedItemCellDelegate
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
+		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		let feedItem = self.feedItems[atIndexPath.row]
-		guard !feedItem.isPinned == true else { return }
+		guard !feedItem.isPinned == true else {
+			rSSTabBar.removeFeedItem(feedItem: feedItem)
+			return
+		}
 		feedItem.isPinned = true
 		//save to coreData / move to next VC
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		rSSTabBar.appendFeedItem(feedItem: feedItem)
 	}
 }
