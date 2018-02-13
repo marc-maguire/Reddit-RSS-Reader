@@ -36,6 +36,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		static let category = "category"
 		static let content = "content"
 		static let queue = "XMLParsingQueue"
+		static let dateAt = " at "
 	}
 	
 	func refreshRSSFeed(completion: @escaping (([FeedItem])->())) {
@@ -114,7 +115,10 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
 		guard let date = dateFormatter.date(from: dateString) else { return nil }
-		return dateFormatter.string(from: date)
+		let stringComponents = dateFormatter.string(from: date).components(separatedBy: "T")
+		guard let firstItem = stringComponents.first, let secondItem = stringComponents.last else { return nil }
+		let formattedDateString = firstItem + Constants.dateAt + secondItem
+		return formattedDateString
 	}
 	
 	//MARK: - XML Parser Delegate
