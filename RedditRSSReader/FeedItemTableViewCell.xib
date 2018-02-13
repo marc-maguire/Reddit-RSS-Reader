@@ -38,13 +38,14 @@
                             <constraint firstAttribute="width" constant="59" id="Tz8-eI-fcq"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3E-pC-PX5">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3E-pC-PX5">
                         <rect key="frame" x="353" y="17.5" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="N3E-pC-PX5" secondAttribute="height" multiplier="1:1" id="VI4-jw-fJf"/>
                             <constraint firstAttribute="width" constant="40" id="gzK-he-A8s"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" image="unselectedStar"/>
+                        <state key="selected" image="selectedStar"/>
                         <connections>
                             <action selector="pinnedbuttonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="75w-Mk-PnO"/>
                         </connections>
@@ -87,5 +88,7 @@
     </objects>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="selectedStar" width="128" height="128"/>
+        <image name="unselectedStar" width="128" height="128"/>
     </resources>
 </document>
