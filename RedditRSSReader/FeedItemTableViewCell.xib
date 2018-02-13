@@ -79,7 +79,6 @@
                 <outlet property="dateUpdatedLabel" destination="9vl-pT-EIe" id="RZg-8B-C33"/>
                 <outlet property="feedCategoryLabel" destination="KQ5-qy-Fp3" id="j6E-n2-C5o"/>
                 <outlet property="feedTitleLabel" destination="nv1-ic-fGH" id="OtU-Pv-Sb3"/>
-                <outlet property="imageView" destination="3GR-GG-afs" id="Qrh-r7-jzz"/>
                 <outlet property="pinnedButton" destination="N3E-pC-PX5" id="BWI-Mp-xyg"/>
                 <outlet property="thumbnailImageView" destination="3GR-GG-afs" id="AYd-F7-O19"/>
             </connections>

@@ -41,6 +41,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.syncPinnedItems()
+		self.tableView.reloadData()
 	}
 	
 	//MARK: - Refresh / Pinning
@@ -80,7 +81,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 					feedItem.isPinned = true
 				}
 			}
-			self.tableView.reloadData()
 		}
 	}
 	
