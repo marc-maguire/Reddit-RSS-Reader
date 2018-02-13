@@ -30,16 +30,16 @@ class FeedItemTableViewCell: UITableViewCell {
 		self.delegate?.feedItemCellButtonClicked(atIndexPath: self.indexPath)
 	}
 	
-	private func toggleButtonSelectedState(isSelected: Bool) {
-		self.pinnedButton.isSelected = !isSelected
-	}
-	
 	var indexPath: IndexPath!
 	
 	var delegate: FeedItemCellDelegate?
 	
 	private enum Constants {
 		static let updatedOn = "Last updated on: "
+	}
+	
+	private func toggleButtonSelectedState(isSelected: Bool) {
+		self.pinnedButton.isSelected = !isSelected
 	}
 	
 	func configureCell(title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
