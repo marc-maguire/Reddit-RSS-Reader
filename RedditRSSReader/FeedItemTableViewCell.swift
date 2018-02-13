@@ -24,13 +24,13 @@ class FeedItemTableViewCell: UITableViewCell {
 	
 	@IBOutlet weak private var pinnedButton: UIButton!
 	
-	@IBAction func pinnedbuttonPressed(_ sender: UIButton) {
+	@IBAction private func pinnedbuttonPressed(_ sender: UIButton) {
 		//change button state to the opposite of what it was
 		self.toggleButtonSelectedState(isSelected: self.pinnedButton.isSelected)
 		self.delegate?.feedItemCellButtonClicked(atIndexPath: self.indexPath)
 	}
 	
-	func toggleButtonSelectedState(isSelected: Bool) {
+	private func toggleButtonSelectedState(isSelected: Bool) {
 		self.pinnedButton.isSelected = !isSelected
 	}
 	
