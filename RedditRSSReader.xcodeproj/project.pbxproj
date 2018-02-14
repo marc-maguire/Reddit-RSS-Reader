@@ -121,7 +121,7 @@
 				921DC8682030BEB700A7B5D5 /* View Controllers */,
 				921DC86B2030BF2600A7B5D5 /* Supporting Files */,
 				921DC83A20309D9E00A7B5D5 /* Info.plist */,
-				921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */,
+				922691F02033DEBB006C752B /* DataSource */,
 			);
 			path = RedditRSSReader;
 			sourceTree = "<group>";
@@ -184,6 +184,14 @@
 				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		922691F02033DEBB006C752B /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
