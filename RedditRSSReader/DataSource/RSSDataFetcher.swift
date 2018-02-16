@@ -26,8 +26,8 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	}
 	
 	enum ParseTerms: String {
-		case contentURL = "href="
-		case thumbnailURL = "src="
+		case contentURL = "href=\"([^\\\"]*)"
+		case imageURL = "src=\"([^\\\"]*)"
 	}
 	
 	enum Constants {
@@ -86,29 +86,14 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	}
 	
 	func parseURL(_ URLType: ParseTerms, fromContent content: String) -> String? {
-		let segments = content.components(separatedBy: " ")
-		var parsedURL: String?
 		
-		for segment in segments {
-			if segment.contains(URLType.rawValue) {
-				parsedURL = segment.components(separatedBy: "=").last
-				let parsedURL1 = parsedURL?.replacingOccurrences(of: "\\", with: "")
-				let parsedURL2 = parsedURL1?.replacingOccurrences(of: "\"", with: "")
-				parsedURL = parsedURL2?.replacingOccurrences(of: ">", with: "")
-				
-				break
-			}
-		}
-		guard var unwrappedParsedURL = parsedURL else { return parsedURL }
-		for char in unwrappedParsedURL {
-			if char != "h" {
-				unwrappedParsedURL.removeFirst()
-			} else if char == "h" {
-				parsedURL = unwrappedParsedURL
-				break
-			}
-		}
-		return parsedURL
+		let regex = try! NSRegularExpression(pattern: URLType.rawValue, options: [])
+		let matches = regex.matches(in: content, options: [], range: NSMakeRange(0, content.count))
+		guard let matchRange = matches.first?.range(at: 1) else { return nil }
+		let input = content as NSString
+		let matchString = input.substring(with: matchRange)
+
+		return matchString
 	}
 	
 	func formatISO8601Date(dateString: String) -> String? {
@@ -150,7 +135,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			}
 			
 			//we want to know if this is nil, we will use a default thumb if not
-			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: self.content)
+			let thumbURLString = self.parseURL(.imageURL, fromContent: self.content)
 			let newFeedItem = FeedItem(title: self.title, dateUpdated: dateUpdated, category: self.category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
 			guard let thumbURL = thumbURLString, let url = URL(string: thumbURL), let data = try? Data(contentsOf: url) else {
 				self.parsedFeedItems.append(newFeedItem)
