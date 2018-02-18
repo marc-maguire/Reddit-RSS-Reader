@@ -16,6 +16,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	private var currentElement: String? = nil
 	
 	//Values we will be parsing out:
+	private var id: String = ""
 	private var title: String = ""
 	private var dateUpdated: String = ""
 	private var category: String = ""
@@ -31,6 +32,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	}
 	
 	enum Constants {
+		static let id = "id"
 		static let title = "title"
 		static let dateUpdated = "updated"
 		static let category = "category"
@@ -138,6 +140,8 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			self.dateUpdated.append(string)
 		} else if self.currentElement == Constants.content {
 			self.content.append(string)
+		} else if self.currentElement == Constants.id {
+			self.id.append(string)
 		}
 	}
 	
@@ -151,7 +155,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			
 			//we want to know if this is nil, we will use a default thumb if not
 			let thumbURLString = self.parseURL(.thumbnailURL, fromContent: self.content)
-			let newFeedItem = FeedItem(title: self.title, dateUpdated: dateUpdated, category: self.category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
+			let newFeedItem = FeedItem(id: self.id, title: self.title, dateUpdated: dateUpdated, category: self.category, thumbnailURLString: thumbURLString, contentURLString: contentURLString)
 			guard let thumbURL = thumbURLString, let url = URL(string: thumbURL), let data = try? Data(contentsOf: url) else {
 				self.parsedFeedItems.append(newFeedItem)
 				self.resetParserVars()

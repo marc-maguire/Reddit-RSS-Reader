@@ -11,6 +11,7 @@ import UIKit
 
 class FeedItem {
 	
+	let id: String
 	let title: String
 	let dateUpdated: String
 	let category: String
@@ -19,7 +20,8 @@ class FeedItem {
 	let contentURLString: String
 	var isPinned: Bool = false
 	
-	init(title: String, dateUpdated: String, category: String, thumbnailURLString: String?, contentURLString: String) {
+	init(id: String, title: String, dateUpdated: String, category: String, thumbnailURLString: String?, contentURLString: String) {
+		self.id = id
 		self.title = title
 		self.dateUpdated = dateUpdated
 		self.category = category
