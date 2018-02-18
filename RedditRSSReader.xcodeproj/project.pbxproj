@@ -26,6 +26,7 @@
 		921DC8722031057700A7B5D5 /* FeedItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921DC8702031057700A7B5D5 /* FeedItemTableViewCell.swift */; };
 		921DC8732031057700A7B5D5 /* FeedItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 921DC8712031057700A7B5D5 /* FeedItemTableViewCell.xib */; };
 		92A2F0C1203A3EE100E6279B /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2F0C0203A3EE100E6279B /* CoreDataController.swift */; };
+		92A2F0C4203A3FF400E6279B /* RedditRSSReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A2F0C2203A3FF400E6279B /* RedditRSSReader.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		921DC8702031057700A7B5D5 /* FeedItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemTableViewCell.swift; sourceTree = "<group>"; };
 		921DC8712031057700A7B5D5 /* FeedItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedItemTableViewCell.xib; sourceTree = "<group>"; };
 		92A2F0C0203A3EE100E6279B /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		92A2F0C3203A3FF400E6279B /* RedditRSSReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RedditRSSReader.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			children = (
 				921DC86C2030BFBC00A7B5D5 /* RSSDataFetcher.swift */,
 				92A2F0C0203A3EE100E6279B /* CoreDataController.swift */,
+				92A2F0C2203A3FF400E6279B /* RedditRSSReader.xcdatamodeld */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				921DC86D2030BFBC00A7B5D5 /* RSSDataFetcher.swift in Sources */,
 				921DC85A20309FB500A7B5D5 /* PinnedItemsViewController.swift in Sources */,
 				921DC8722031057700A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
+				92A2F0C4203A3FF400E6279B /* RedditRSSReader.xcdatamodeld in Sources */,
 				92A2F0C1203A3EE100E6279B /* CoreDataController.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
 				921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */,
@@ -618,6 +622,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		92A2F0C2203A3FF400E6279B /* RedditRSSReader.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				92A2F0C3203A3FF400E6279B /* RedditRSSReader.xcdatamodel */,
+			);
+			currentVersion = 92A2F0C3203A3FF400E6279B /* RedditRSSReader.xcdatamodel */;
+			path = RedditRSSReader.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 921DC82120309D9D00A7B5D5 /* Project object */;
 }
