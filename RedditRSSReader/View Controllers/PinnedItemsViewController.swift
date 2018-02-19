@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FeedItemCellDelegate {
 	
@@ -35,13 +36,21 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems() else {
-			self.pinnedFeedItems.removeAll()
-			return
+
+		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
+		do {
+			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
+			guard searchResults.count != 0 else { return }
+			
+			for item in searchResults {
+				let newFeedItem = FeedItem(id: item.id, title: item.title, dateUpdated: item.dateUpdated, category: item.category, thumbnail: item.thumbnail as Data?, thumbnailURLString: nil, contentURLString: item.contentURLString)
+				self.pinnedFeedItems.append(newFeedItem)
+			}
+			self.tableView.reloadData()
+		} catch {
+			print("Fetch failed due to error: \(error)")
 		}
-		self.pinnedFeedItems = pinnedItems
 	}
-	
 	
 	//MARK: - Table View Data Source
 	
@@ -78,8 +87,19 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
 		
 		//save to coreData / move to next VC
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
+		let feedItem = self.pinnedFeedItems[atIndexPath.row]
+		//does it exist?
+		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
+		let predicate = NSPredicate(format: "id == %@", feedItem.id)
+		fetchRequest.predicate = predicate
+		do {
+			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
+			guard searchResults.count == 1 else { return }
+			CoreDataController.getContext().delete(searchResults.first!)
+			CoreDataController.saveContext()
+		} catch {
+			print("Fetch failed due to error: \(error)")
+		}
 		self.pinnedFeedItems.remove(at: atIndexPath.row)
-		rSSTabBar.removeFeedItem(atIndex: atIndexPath)
 	}
 }

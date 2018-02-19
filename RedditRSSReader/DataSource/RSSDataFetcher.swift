@@ -147,7 +147,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	
 	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 		if elementName == Constants.title {
-			guard let dateUpdated = self.formatISO8601Date(dateString: self.dateUpdated), let contentURLString = self.parseURL(.contentURL, fromContent: self.content) else {
+			guard let dateUpdated = self.formatISO8601Date(dateString: self.dateUpdated), let contentURLString = self.parseURL(.contentURL, fromContent: self.content), self.id != "" else {
 				self.resetParserVars()
 				print("Received bad data or parsing logic failed, skipping creation of feed item")
 				return

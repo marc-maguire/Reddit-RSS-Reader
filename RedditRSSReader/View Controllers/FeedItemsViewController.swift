@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FeedItemCellDelegate {
 	
@@ -22,6 +23,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	private enum Constants {
 		static let contentViewControllerSegue = "ContentViewControllerSegue"
 		static let feedItems = "Feed Items"
+		static let feedItemEntityClassName = String(describing: FeedItemEntity.self)
 	}
 	
 	//MARK: - App Lifecycle
@@ -117,14 +119,33 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	//MARK: - FeedItemCellDelegate
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController else { return }
 		let feedItem = self.feedItems[atIndexPath.row]
-		guard !feedItem.isPinned == true else {
-			rSSTabBar.removeFeedItem(feedItem: feedItem)
-			return
+		//does it exist?
+		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
+		let predicate = NSPredicate(format: "id == %@", feedItem.id)
+		fetchRequest.predicate = predicate
+		do {
+			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
+			if searchResults.count == 0 {
+				//create it
+				let feedItemEntity = NSEntityDescription.insertNewObject(forEntityName: Constants.feedItemEntityClassName, into: CoreDataController.getContext()) as! FeedItemEntity
+				
+				feedItemEntity.title = feedItem.title
+				if let thumbnailData = feedItem.thumbnail {
+					feedItemEntity.thumbnail = thumbnailData as NSData
+				} else {
+					feedItemEntity.thumbnail = nil
+				}
+				feedItemEntity.category = feedItem.category
+				feedItemEntity.dateUpdated = feedItem.dateUpdated
+				feedItemEntity.id = feedItem.id
+			} else {
+				//delete it
+				CoreDataController.getContext().delete(searchResults.first!)
+			}
+			CoreDataController.saveContext()
+		} catch {
+			print("Fetch failed due to error: \(error)")
 		}
-		feedItem.isPinned = true
-		//save to coreData / move to next VC
-		rSSTabBar.appendFeedItem(feedItem: feedItem)
 	}
 }

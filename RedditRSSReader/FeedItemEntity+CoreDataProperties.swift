@@ -17,11 +17,11 @@ extension FeedItemEntity {
         return NSFetchRequest<FeedItemEntity>(entityName: "FeedItemEntity")
     }
 
-    @NSManaged public var title: String?
-    @NSManaged public var contentURLString: String?
+    @NSManaged public var title: String
+    @NSManaged public var contentURLString: String
     @NSManaged public var thumbnail: NSData?
-    @NSManaged public var category: String?
-    @NSManaged public var dateUpdated: String?
-    @NSManaged public var id: String?
+    @NSManaged public var category: String
+    @NSManaged public var dateUpdated: String
+    @NSManaged public var id: String
 
 }

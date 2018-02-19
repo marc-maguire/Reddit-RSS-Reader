@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FeedItemEntity" representedClassName=".FeedItemEntity" syncable="YES" codeGenerationType="class">
+    <entity name="FeedItemEntity" representedClassName=".FeedItemEntity" syncable="YES">
         <attribute name="category" attributeType="String" syncable="YES"/>
         <attribute name="contentURLString" attributeType="String" syncable="YES"/>
-        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateUpdated" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
