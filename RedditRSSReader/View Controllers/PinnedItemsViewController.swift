@@ -38,6 +38,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		super.viewWillAppear(animated)
 		self.pinnedFeedItems.removeAll()
 		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateUpdated", ascending: false)]
 		do {
 			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
 			guard searchResults.count != 0 else { return }
