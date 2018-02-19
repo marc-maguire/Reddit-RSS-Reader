@@ -88,19 +88,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		} catch {
 			print("Fetch failed due to error: \(error)")
 		}
-//		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
-//			self.unpinAll()
-//			return
-//		}
-//		//could this be done better?
-//		self.unpinAll()
-//		for feedItem in self.feedItems {
-//			for pinnedItem in pinnedItems {
-//				if feedItem.contentURLString == pinnedItem.contentURLString {
-//					feedItem.isPinned = true
-//				}
-//			}
-//		}
 	}
 	
 	//MARK: - Table View Data Source
