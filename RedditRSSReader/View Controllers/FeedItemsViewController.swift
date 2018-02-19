@@ -71,19 +71,36 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	}
 	
 	private func syncPinnedItems() {
-		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
-			self.unpinAll()
-			return
-		}
-		//could this be done better?
 		self.unpinAll()
-		for feedItem in self.feedItems {
-			for pinnedItem in pinnedItems {
-				if feedItem.contentURLString == pinnedItem.contentURLString {
-					feedItem.isPinned = true
+		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
+		do {
+			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
+			guard searchResults.count != 0 else { return }
+			
+			for searchResult in searchResults {
+				for feedItem in self.feedItems {
+					if feedItem.id == searchResult.id {
+						feedItem.isPinned = true
+					}
 				}
 			}
+			self.tableView.reloadData()
+		} catch {
+			print("Fetch failed due to error: \(error)")
 		}
+//		guard let rSSTabBar = self.tabBarController as? RSSTabBarController, let pinnedItems = rSSTabBar.getFeedItems(), !pinnedItems.isEmpty else {
+//			self.unpinAll()
+//			return
+//		}
+//		//could this be done better?
+//		self.unpinAll()
+//		for feedItem in self.feedItems {
+//			for pinnedItem in pinnedItems {
+//				if feedItem.contentURLString == pinnedItem.contentURLString {
+//					feedItem.isPinned = true
+//				}
+//			}
+//		}
 	}
 	
 	//MARK: - Table View Data Source
@@ -131,6 +148,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 				let feedItemEntity = NSEntityDescription.insertNewObject(forEntityName: Constants.feedItemEntityClassName, into: CoreDataController.getContext()) as! FeedItemEntity
 				
 				feedItemEntity.title = feedItem.title
+				feedItemEntity.contentURLString = feedItem.contentURLString
 				if let thumbnailData = feedItem.thumbnail {
 					feedItemEntity.thumbnail = thumbnailData as NSData
 				} else {

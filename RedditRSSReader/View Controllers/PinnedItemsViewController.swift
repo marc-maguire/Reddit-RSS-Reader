@@ -36,7 +36,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
+		self.pinnedFeedItems.removeAll()
 		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
 		do {
 			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
@@ -65,11 +65,11 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		feedCell.indexPath = indexPath
 		let feedItem = self.pinnedFeedItems[indexPath.row]
 		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
+			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: nil)
 			return cell
 		}
 		let image = UIImage(data: data)
-		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
+		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: image)
 		return cell
 	}
 	
