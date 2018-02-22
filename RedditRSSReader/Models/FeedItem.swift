@@ -20,7 +20,7 @@ class FeedItem {
 	let contentURLString: String
 	var isPinned: Bool = false
 	
-	init(id: String, title: String, dateUpdated: String, category: String, thumbnail: Data? = nil, thumbnailURLString: String?, contentURLString: String) {
+	init(id: String, title: String, dateUpdated: String, category: String, thumbnail: Data? = nil, thumbnailURLString: String?, contentURLString: String, isPinned: Bool = false) {
 		self.id = id
 		self.title = title
 		self.dateUpdated = dateUpdated
@@ -28,5 +28,6 @@ class FeedItem {
 		self.thumbnail = thumbnail
 		self.thumbnailURLString = thumbnailURLString
 		self.contentURLString = contentURLString
+		self.isPinned = isPinned
 	}
 }

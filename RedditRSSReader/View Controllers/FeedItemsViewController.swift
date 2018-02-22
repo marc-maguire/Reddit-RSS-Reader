@@ -57,7 +57,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	private func refreshFeed(completion: @escaping ()->()) {
 		let downloader = RSSDataFetcher()
 		downloader.refreshRSSFeed { feedItems in
-			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
+			self.feedItems = feedItems
 			self.syncPinnedItems()
 			self.tableView.reloadData()
 			completion()
@@ -76,14 +76,14 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		do {
 			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
 			guard searchResults.count != 0 else { return }
-			
-			for searchResult in searchResults {
-				for feedItem in self.feedItems {
-					if feedItem.id == searchResult.id {
-						feedItem.isPinned = true
-					}
+			for result in searchResults {
+				if let match = self.feedItems.first(where: { $0.id == result.id }) {
+					match.isPinned = true
+				} else {
+					self.feedItems.append(FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true))
 				}
 			}
+			self.feedItems = self.feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.tableView.reloadData()
 		} catch {
 			print("Fetch failed due to error: \(error)")
