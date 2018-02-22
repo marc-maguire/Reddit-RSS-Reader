@@ -13,6 +13,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	@IBOutlet weak private var tableView: UITableView!
 	private var feedItems: [FeedItem] = []
+	private var feedLoaded = false
 	
 	lazy private var refreshControl: UIRefreshControl = {
 		let refreshControl = UIRefreshControl()
@@ -35,15 +36,18 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		self.tableView.addSubview(self.refreshControl)
 		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
 		self.navigationItem.title = Constants.feedItems
-		self.refreshFeed() {
-			print("feed refreshed")
+				self.refreshFeed() {
+					self.feedLoaded = true
+					print("feed refreshed")
 		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		self.syncPinnedItems()
-		self.tableView.reloadData()
+		if self.feedLoaded {
+			self.syncPinnedItems()
+			self.tableView.reloadData()
+		}
 	}
 	
 	//MARK: - Refresh / Pinning
@@ -57,7 +61,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	private func refreshFeed(completion: @escaping ()->()) {
 		let downloader = RSSDataFetcher()
 		downloader.refreshRSSFeed { feedItems in
-			self.feedItems = feedItems
+			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.syncPinnedItems()
 			self.tableView.reloadData()
 			completion()
@@ -76,15 +80,16 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		do {
 			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
 			guard searchResults.count != 0 else { return }
+
 			for result in searchResults {
 				if let match = self.feedItems.first(where: { $0.id == result.id }) {
 					match.isPinned = true
 				} else {
-					self.feedItems.append(FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true))
+					let feedItem = FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnail: result.thumbnail as? Data, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true)
+					self.feedItems.append(feedItem)
 				}
 			}
 			self.feedItems = self.feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
-			self.tableView.reloadData()
 		} catch {
 			print("Fetch failed due to error: \(error)")
 		}

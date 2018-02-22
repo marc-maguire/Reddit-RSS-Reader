@@ -85,6 +85,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		self.dateUpdated = ""
 		self.category = ""
 		self.content = ""
+		self.id = ""
 	}
 	
 	func parseURL(_ URLType: ParseTerms, fromContent content: String) -> String? {
