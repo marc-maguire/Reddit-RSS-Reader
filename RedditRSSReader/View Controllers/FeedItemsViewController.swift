@@ -12,7 +12,11 @@ import CoreData
 class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FeedItemCellDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
-	private var feedItems: [FeedItem] = []
+	private var feedItems: [FeedItem] = [] {
+		didSet {
+			self.tableView.reloadData()
+		}
+	}
 	private var feedLoaded = false
 	
 	lazy private var refreshControl: UIRefreshControl = {
@@ -43,7 +47,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewWillAppear(animated)
 		if self.feedLoaded {
 			self.syncPinnedItems()
-			self.tableView.reloadData()
 		}
 	}
 	
@@ -69,7 +72,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		downloader.refreshRSSFeed { feedItems in
 			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.syncPinnedItems()
-			self.tableView.reloadData()
 			completion()
 		}
 	}
