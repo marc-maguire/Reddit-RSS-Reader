@@ -31,10 +31,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.tableView.dataSource = self
-		self.tableView.delegate = self
-		self.tableView.addSubview(self.refreshControl)
-		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
+		self.setupTableView()
 		self.navigationItem.title = Constants.feedItems
 				self.refreshFeed() {
 					self.feedLoaded = true
@@ -48,6 +45,15 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			self.syncPinnedItems()
 			self.tableView.reloadData()
 		}
+	}
+	
+	//MARK: - Setup
+	
+	private func setupTableView() {
+		self.tableView.dataSource = self
+		self.tableView.delegate = self
+		self.tableView.addSubview(self.refreshControl)
+		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
 	}
 	
 	//MARK: - Refresh / Pinning

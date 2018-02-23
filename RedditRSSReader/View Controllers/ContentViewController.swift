@@ -12,6 +12,7 @@ import WebKit
 class ContentViewController: UIViewController, WKNavigationDelegate {
 
 	@IBOutlet weak private var webView: WKWebView!
+	
 	private var contentURL: String? {
 		didSet {
 			guard let urlString = self.contentURL, let url = URL(string: urlString) else {

@@ -27,9 +27,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.tableView.dataSource = self
-		self.tableView.delegate = self
-		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
+		self.setupTableView()
 		self.navigationItem.title = Constants.pinnedItems
 	}
 	
@@ -46,6 +44,14 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		} catch {
 			print("Fetch failed due to error: \(error)")
 		}
+	}
+	
+	//MARK: - Setup
+	
+	private func setupTableView() {
+		self.tableView.dataSource = self
+		self.tableView.delegate = self
+		self.tableView.register(UINib(nibName: String(describing: FeedItemTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: FeedItemTableViewCell.self))
 	}
 	
 	//MARK: - Table View Data Source
