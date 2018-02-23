@@ -12,9 +12,8 @@ import CoreData
 class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FeedItemCellDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
-	private var pinnedFeedItems: [FeedItem] = [] {
+	private var pinnedFeedItems: [FeedItemEntity] = [] {
 		didSet {
-			self.pinnedFeedItems = self.pinnedFeedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.tableView.reloadData()
 		}
 	}
@@ -42,12 +41,8 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		do {
 			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
 			guard searchResults.count != 0 else { return }
-			
-			for item in searchResults {
-				let newFeedItem = FeedItem(id: item.id, title: item.title, dateUpdated: item.dateUpdated, category: item.category, thumbnail: item.thumbnail as Data?, thumbnailURLString: nil, contentURLString: item.contentURLString)
-				self.pinnedFeedItems.append(newFeedItem)
-			}
-			self.tableView.reloadData()
+			let sortedResults = searchResults.sorted() { $0.dateUpdated > $1.dateUpdated }
+			self.pinnedFeedItems = sortedResults
 		} catch {
 			print("Fetch failed due to error: \(error)")
 		}
@@ -69,7 +64,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: nil)
 			return cell
 		}
-		let image = UIImage(data: data)
+		let image = UIImage(data: data as Data)
 		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: image)
 		return cell
 	}
