@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FeedItemCellDelegate{
-	func feedItemCellButtonClicked(atIndexPath: IndexPath)
+	func feedItemCellButtonClicked(withContentURL URL: String)
 }
 
 class FeedItemTableViewCell: UITableViewCell {
@@ -24,13 +24,13 @@ class FeedItemTableViewCell: UITableViewCell {
 	
 	@IBOutlet weak private var pinnedButton: UIButton!
 	
+	private var contentURLString: String!
+	
 	@IBAction private func pinnedbuttonPressed(_ sender: UIButton) {
 		//change button state to the opposite of what it was
 		self.toggleButtonSelectedState(isSelected: self.pinnedButton.isSelected)
-		self.delegate?.feedItemCellButtonClicked(atIndexPath: self.indexPath)
+		self.delegate?.feedItemCellButtonClicked(withContentURL: self.contentURLString)
 	}
-	
-	var indexPath: IndexPath!
 	
 	var delegate: FeedItemCellDelegate?
 	
@@ -42,7 +42,7 @@ class FeedItemTableViewCell: UITableViewCell {
 		self.pinnedButton.isSelected = !isSelected
 	}
 	
-	func configureCell(title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?) {
+	func configureCell(title: String, dateUpdated: String, category: String, isSelected: Bool, image: UIImage?, contentURL: String) {
 		
 		self.feedTitleLabel.text = title
 		self.dateUpdatedLabel.text = Constants.updatedOn + dateUpdated
@@ -53,6 +53,7 @@ class FeedItemTableViewCell: UITableViewCell {
 		} else {
 			self.thumbnailImageView.image = UIImage(named: "first")
 		}
+		self.contentURLString = contentURL
 		
 	}
     

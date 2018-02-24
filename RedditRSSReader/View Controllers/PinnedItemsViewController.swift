@@ -12,11 +12,7 @@ import CoreData
 class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FeedItemCellDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
-	private var pinnedFeedItems: [FeedItemEntity] = [] {
-		didSet {
-			self.tableView.reloadData()
-		}
-	}
+	private var pinnedFeedItems: [FeedItemEntity] = []
 	
 	private enum Constants {
 		static let contentViewControllerSegue = "ContentViewControllerSegue"
@@ -34,6 +30,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.pinnedFeedItems = FeedItemEntity.getAll()
+		self.tableView.reloadData()
 	}
 	
 	//MARK: - Setup
@@ -54,14 +51,14 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FeedItemTableViewCell.self), for: indexPath)
 		guard let feedCell = cell as? FeedItemTableViewCell else { return cell }
 		feedCell.delegate = self
-		feedCell.indexPath = indexPath
+
 		let feedItem = self.pinnedFeedItems[indexPath.row]
 		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: nil)
+			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: nil, contentURL: feedItem.contentURLString)
 			return cell
 		}
 		let image = UIImage(data: data as Data)
-		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: image)
+		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: image, contentURL: feedItem.contentURLString)
 		return cell
 	}
 	
@@ -105,9 +102,14 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	//MARK: - FeedItemCellDelegate
 	
-	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
-		let feedItem = self.pinnedFeedItems[atIndexPath.row]
-		FeedItemEntity.deleteEntity(withID: feedItem.id)
-		self.pinnedFeedItems.remove(at: atIndexPath.row)
+	func feedItemCellButtonClicked(withContentURL URL: String) {
+		if let feedItem = self.pinnedFeedItems.first(where: { $0.contentURLString == URL }) {
+			guard let row = self.pinnedFeedItems.index(of: feedItem) else { return }
+			let indexPath = IndexPath(row: row, section: 0)
+			self.pinnedFeedItems.remove(at: row)
+			self.tableView.deleteRows(at: [indexPath], with: .fade)
+			FeedItemEntity.deleteEntity(withID: feedItem.id)
+		}
+		
 	}
 }

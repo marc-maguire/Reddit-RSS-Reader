@@ -113,14 +113,13 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FeedItemTableViewCell.self), for: indexPath)
 		guard let feedCell = cell as? FeedItemTableViewCell else { return cell }
 		feedCell.delegate = self
-		feedCell.indexPath = indexPath
 		let feedItem = self.feedItems[indexPath.row]
 		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil)
+			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil, contentURL: feedItem.contentURLString)
 			return cell
 		}
 		let image = UIImage(data: data)
-		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image)
+		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image, contentURL: feedItem.contentURLString)
 		return cell
 	}
 	
@@ -160,12 +159,15 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 				cell.alpha = 1
 			}, completion: nil)
 		}
+		
 	}
 	
 	//MARK: - FeedItemCellDelegate
 	
-	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
-		let feedItem = self.feedItems[atIndexPath.row]
+	func feedItemCellButtonClicked(withContentURL URL: String) {
+		if let feedItem = self.feedItems.first(where: { $0.contentURLString == URL }) {
+		feedItem.isPinned = true
 		FeedItemEntity.createOrDeleteEntity(fromItem: feedItem)
+		}
 	}
 }
