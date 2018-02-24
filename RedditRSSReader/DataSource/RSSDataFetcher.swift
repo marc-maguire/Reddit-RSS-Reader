@@ -22,16 +22,16 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 	private var category: String = ""
 	private var content: String = ""
 	
-	enum DownloadSource: String {
+	private enum DownloadSource: String {
 		case reddit = "https://www.reddit.com/hot/.rss"
 	}
 	
-	enum ParsePatterns: String {
+	private enum ParsePatterns: String {
 		case contentURL = "href=\"([^\\\"]*)"
 		case imageURL = "src=\"([^\\\"]*)"
 	}
 	
-	enum Constants {
+	private enum Constants {
 		static let id = "id"
 		static let title = "title"
 		static let dateUpdated = "updated"
@@ -67,7 +67,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		}
 	}
 	
-	func downloadRSSFeeds(fromSource: DownloadSource, queue: DispatchQueue, completion: @escaping (_ data: Data?, _ error: Error?) ->()) {
+	private func downloadRSSFeeds(fromSource: DownloadSource, queue: DispatchQueue, completion: @escaping (_ data: Data?, _ error: Error?) ->()) {
 		// Fetch Request
 		Alamofire.request(fromSource.rawValue, method: .get).validate(statusCode: 200..<300).responseData(queue: queue) { response in
 			switch response.result {
@@ -80,7 +80,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		}
 	}
 	
-	func resetParserVars() {
+	private func resetParserVars() {
 		self.title = ""
 		self.dateUpdated = ""
 		self.category = ""
@@ -88,7 +88,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		self.id = ""
 	}
 	
-	func parseURL(_ URLType: ParsePatterns, fromContent content: String) -> String? {
+	private func parseURL(_ URLType: ParsePatterns, fromContent content: String) -> String? {
 		
 		let regex = try? NSRegularExpression(pattern: URLType.rawValue, options: [])
 		let matches = regex?.matches(in: content, options: [], range: NSMakeRange(0, content.count))
@@ -99,7 +99,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		return matchString
 	}
 	
-	func formatISO8601Date(dateString: String) -> String? {
+	private func formatISO8601Date(dateString: String) -> String? {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
 		guard let date = dateFormatter.date(from: dateString) else { return nil }
