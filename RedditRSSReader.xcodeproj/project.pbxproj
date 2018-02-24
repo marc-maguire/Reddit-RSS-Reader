@@ -124,8 +124,6 @@
 		921DC82B20309D9E00A7B5D5 /* RedditRSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				92A2F0C5203A475100E6279B /* FeedItemEntity+CoreDataClass.swift */,
-				92A2F0C6203A475100E6279B /* FeedItemEntity+CoreDataProperties.swift */,
 				921DC8692030BECD00A7B5D5 /* Views */,
 				921DC86A2030BEEE00A7B5D5 /* Models */,
 				921DC8682030BEB700A7B5D5 /* View Controllers */,
@@ -182,6 +180,7 @@
 		921DC86A2030BEEE00A7B5D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92FA721C2041B3730073AE0A /* Entities */,
 				921DC8652030B7DE00A7B5D5 /* FeedItem.swift */,
 			);
 			path = Models;
@@ -204,6 +203,15 @@
 				92A2F0C2203A3FF400E6279B /* RedditRSSReader.xcdatamodeld */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		92FA721C2041B3730073AE0A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				92A2F0C5203A475100E6279B /* FeedItemEntity+CoreDataClass.swift */,
+				92A2F0C6203A475100E6279B /* FeedItemEntity+CoreDataProperties.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
