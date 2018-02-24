@@ -29,6 +29,7 @@
 		92A2F0C4203A3FF400E6279B /* RedditRSSReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A2F0C2203A3FF400E6279B /* RedditRSSReader.xcdatamodeld */; };
 		92A2F0C7203A475100E6279B /* FeedItemEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2F0C5203A475100E6279B /* FeedItemEntity+CoreDataClass.swift */; };
 		92A2F0C8203A475100E6279B /* FeedItemEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2F0C6203A475100E6279B /* FeedItemEntity+CoreDataProperties.swift */; };
+		92FA721E2041BD2E0073AE0A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA721D2041BD2E0073AE0A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		92A2F0C3203A3FF400E6279B /* RedditRSSReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RedditRSSReader.xcdatamodel; sourceTree = "<group>"; };
 		92A2F0C5203A475100E6279B /* FeedItemEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedItemEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92A2F0C6203A475100E6279B /* FeedItemEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedItemEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		92FA721D2041BD2E0073AE0A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				921DC82C20309D9E00A7B5D5 /* AppDelegate.swift */,
+				92FA721D2041BD2E0073AE0A /* Extensions.swift */,
 				921DC83520309D9E00A7B5D5 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -389,6 +392,7 @@
 				921DC8722031057700A7B5D5 /* FeedItemTableViewCell.swift in Sources */,
 				92A2F0C4203A3FF400E6279B /* RedditRSSReader.xcdatamodeld in Sources */,
 				92A2F0C1203A3EE100E6279B /* CoreDataController.swift in Sources */,
+				92FA721E2041BD2E0073AE0A /* Extensions.swift in Sources */,
 				921DC82D20309D9E00A7B5D5 /* AppDelegate.swift in Sources */,
 				921DC8662030B7DE00A7B5D5 /* FeedItem.swift in Sources */,
 				921DC85820309FA100A7B5D5 /* FeedItemsViewController.swift in Sources */,

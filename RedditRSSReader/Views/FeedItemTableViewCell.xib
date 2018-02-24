@@ -37,6 +37,11 @@
                             <constraint firstAttribute="width" secondItem="3GR-GG-afs" secondAttribute="height" multiplier="56:59" id="EUL-pX-paf"/>
                             <constraint firstAttribute="width" constant="59" id="Tz8-eI-fcq"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3E-pC-PX5">
                         <rect key="frame" x="353" y="17.5" width="40" height="40"/>
