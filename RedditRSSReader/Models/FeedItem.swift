@@ -30,4 +30,7 @@ class FeedItem {
 		self.contentURLString = contentURLString
 		self.isPinned = isPinned
 	}
+	convenience init(fromEntity feedItemEntity: FeedItemEntity) {
+		self.init(id: feedItemEntity.id, title: feedItemEntity.title, dateUpdated: feedItemEntity.dateUpdated, category: feedItemEntity.category, thumbnail: feedItemEntity.thumbnail as Data?, thumbnailURLString: nil, contentURLString: feedItemEntity.contentURLString, isPinned: true)
+	}
 }

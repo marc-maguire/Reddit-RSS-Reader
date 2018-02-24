@@ -52,13 +52,13 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		guard let feedCell = cell as? FeedItemTableViewCell else { return cell }
 		feedCell.delegate = self
 
-		let feedItem = self.pinnedFeedItems[indexPath.row]
-		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: nil, contentURL: feedItem.contentURLString)
+		let feedItemEntity = self.pinnedFeedItems[indexPath.row]
+		guard let data = feedItemEntity.thumbnail else {
+			feedCell.configureCell(title: feedItemEntity.title, dateUpdated: feedItemEntity.dateUpdated, category: feedItemEntity.category, isSelected: true, image: nil, contentURL: feedItemEntity.contentURLString)
 			return cell
 		}
 		let image = UIImage(data: data as Data)
-		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: true, image: image, contentURL: feedItem.contentURLString)
+		feedCell.configureCell(title: feedItemEntity.title, dateUpdated: feedItemEntity.dateUpdated, category: feedItemEntity.category, isSelected: true, image: image, contentURL: feedItemEntity.contentURLString)
 		return cell
 	}
 	
