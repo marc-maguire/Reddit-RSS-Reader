@@ -74,6 +74,35 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 		self.performSegue(withIdentifier: Constants.contentViewControllerSegue, sender: self)
 	}
 	
+	private var finishedLoadingInitialTableCells = false
+	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		//ref: https://stackoverflow.com/questions/33410482/table-view-cell-load-animation-one-after-another
+		var lastInitialDisplayableCell = false
+		
+		//change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
+		if self.pinnedFeedItems.count > 0 && !finishedLoadingInitialTableCells {
+			if let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows,
+				let lastIndexPath = indexPathsForVisibleRows.last, lastIndexPath.row == indexPath.row {
+				lastInitialDisplayableCell = true
+			}
+		}
+		if !finishedLoadingInitialTableCells {
+			if lastInitialDisplayableCell {
+				finishedLoadingInitialTableCells = true
+			}
+			
+			//animates the cell as it is being displayed for the first time
+			cell.transform = CGAffineTransform(translationX: 0, y: 80/2)
+			cell.alpha = 0
+			
+			UIView.animate(withDuration: 0.3, delay: 0.03*Double(indexPath.row), options: [.curveEaseInOut], animations: {
+				cell.transform = CGAffineTransform(translationX: 0, y: 0)
+				cell.alpha = 1
+			}, completion: nil)
+		}
+	}
+	
 	//MARK: - FeedItemCellDelegate
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
