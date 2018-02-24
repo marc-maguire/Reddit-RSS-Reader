@@ -28,7 +28,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	private enum Constants {
 		static let contentViewControllerSegue = "ContentViewControllerSegue"
 		static let feedItems = "Feed Items"
-		static let feedItemEntityClassName = String(describing: FeedItemEntity.self)
 	}
 	
 	//MARK: - App Lifecycle
@@ -84,23 +83,24 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	private func syncPinnedItems() {
 		self.unpinAll()
-		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
-		do {
-			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
-			guard searchResults.count != 0 else { return }
-
-			for result in searchResults {
-				if let match = self.feedItems.first(where: { $0.id == result.id }) {
-					match.isPinned = true
-				} else {
-					let feedItem = FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnail: result.thumbnail as? Data, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true)
-					self.feedItems.append(feedItem)
-				}
-			}
-			self.feedItems = self.feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
-		} catch {
-			print("Fetch failed due to error: \(error)")
+		let searchResults = FeedItemEntity.getAll()
+		guard searchResults.count != 0 else {
+			self.sortFeedItemsDescending()
+			return
 		}
+		for result in searchResults {
+			if let match = self.feedItems.first(where: { $0.id == result.id }) {
+				match.isPinned = true
+			} else {
+				let feedItem = FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnail: result.thumbnail as Data?, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true)
+				self.feedItems.append(feedItem)
+			}
+		}
+		self.sortFeedItemsDescending()
+	}
+	
+	private func sortFeedItemsDescending() {
+		self.feedItems = self.feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 	}
 	
 	//MARK: - Table View Data Source
@@ -137,33 +137,6 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
 		let feedItem = self.feedItems[atIndexPath.row]
-		//does it exist?
-		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
-		let predicate = NSPredicate(format: "id == %@", feedItem.id)
-		fetchRequest.predicate = predicate
-		do {
-			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
-			if searchResults.count == 0 {
-				//create it
-				let feedItemEntity = NSEntityDescription.insertNewObject(forEntityName: Constants.feedItemEntityClassName, into: CoreDataController.getContext()) as! FeedItemEntity
-				
-				feedItemEntity.title = feedItem.title
-				feedItemEntity.contentURLString = feedItem.contentURLString
-				if let thumbnailData = feedItem.thumbnail {
-					feedItemEntity.thumbnail = thumbnailData as NSData
-				} else {
-					feedItemEntity.thumbnail = nil
-				}
-				feedItemEntity.category = feedItem.category
-				feedItemEntity.dateUpdated = feedItem.dateUpdated
-				feedItemEntity.id = feedItem.id
-			} else {
-				//delete it
-				CoreDataController.getContext().delete(searchResults.first!)
-			}
-			CoreDataController.saveContext()
-		} catch {
-			print("Fetch failed due to error: \(error)")
-		}
+		FeedItemEntity.createOrDeleteEntity(fromItem: feedItem)
 	}
 }

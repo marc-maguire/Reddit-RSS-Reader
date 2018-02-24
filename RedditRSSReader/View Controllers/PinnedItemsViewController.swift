@@ -33,17 +33,7 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		self.pinnedFeedItems.removeAll()
-		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateUpdated", ascending: false)]
-		do {
-			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
-			guard searchResults.count != 0 else { return }
-			let sortedResults = searchResults.sorted() { $0.dateUpdated > $1.dateUpdated }
-			self.pinnedFeedItems = sortedResults
-		} catch {
-			print("Fetch failed due to error: \(error)")
-		}
+		self.pinnedFeedItems = FeedItemEntity.getAll()
 	}
 	
 	//MARK: - Setup
@@ -87,21 +77,8 @@ class PinnedItemsViewController: UIViewController, UITableViewDelegate, UITableV
 	//MARK: - FeedItemCellDelegate
 	
 	func feedItemCellButtonClicked(atIndexPath: IndexPath) {
-		
-		//save to coreData / move to next VC
 		let feedItem = self.pinnedFeedItems[atIndexPath.row]
-		//does it exist?
-		let fetchRequest: NSFetchRequest<FeedItemEntity> = FeedItemEntity.fetchRequest()
-		let predicate = NSPredicate(format: "id == %@", feedItem.id)
-		fetchRequest.predicate = predicate
-		do {
-			let searchResults = try CoreDataController.getContext().fetch(fetchRequest)
-			guard searchResults.count == 1 else { return }
-			CoreDataController.getContext().delete(searchResults.first!)
-			CoreDataController.saveContext()
-		} catch {
-			print("Fetch failed due to error: \(error)")
-		}
+		FeedItemEntity.deleteEntity(withID: feedItem.id)
 		self.pinnedFeedItems.remove(at: atIndexPath.row)
 	}
 }
