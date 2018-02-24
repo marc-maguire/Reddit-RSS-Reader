@@ -1,6 +1,6 @@
 # Reddit RSS Reader
 
-This is a simple side project that uses Alamofire to download XML from https://www.reddit.com/hot/.rss. The project shows how to parse XML into custom objects, how to set up your storyboard and views using storyboard references, a simple core data implementation (soon to be updated) and has a good example of handling async calls across multiple threads.
+This is a simple side project that uses Alamofire to download XML from https://www.reddit.com/hot/.rss. The project shows how to parse XML into custom objects, set up your storyboard and views using storyboard references, persist data with Core Data and has a good example of handling async calls across multiple threads.
 
 Pods:
 - Alamofire
