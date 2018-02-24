@@ -26,7 +26,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		case reddit = "https://www.reddit.com/hot/.rss"
 	}
 	
-	enum ParseTerms: String {
+	enum ParsePatterns: String {
 		case contentURL = "href=\"([^\\\"]*)"
 		case imageURL = "src=\"([^\\\"]*)"
 	}
@@ -88,7 +88,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 		self.id = ""
 	}
 	
-	func parseURL(_ URLType: ParseTerms, fromContent content: String) -> String? {
+	func parseURL(_ URLType: ParsePatterns, fromContent content: String) -> String? {
 		
 		let regex = try? NSRegularExpression(pattern: URLType.rawValue, options: [])
 		let matches = regex?.matches(in: content, options: [], range: NSMakeRange(0, content.count))
