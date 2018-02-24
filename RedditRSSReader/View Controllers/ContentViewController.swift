@@ -17,7 +17,7 @@ class ContentViewController: UIViewController, WKNavigationDelegate {
 	private var contentURL: String? {
 		didSet {
 			guard let urlString = self.contentURL, urlString != self.currentlyLoadedURL, let url = URL(string: urlString) else {
-				print("failed to make url from urlString: \(self.contentURL), or URL was already loaded.")
+				print("failed to make url from urlString: \(String(describing: self.contentURL)), or URL was already loaded.")
 				return }
 			self.currentlyLoadedURL = urlString
 			let urlRequest = URLRequest(url: url)
