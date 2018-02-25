@@ -92,7 +92,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 			if let match = self.feedItems.first(where: { $0.id == result.id }) {
 				match.isPinned = true
 			} else {
-				let feedItem = FeedItem(id: result.id, title: result.title, dateUpdated: result.dateUpdated, category: result.category, thumbnail: result.thumbnail as Data?, thumbnailURLString: nil, contentURLString: result.contentURLString, isPinned: true)
+				let feedItem = FeedItem(fromEntity: result)
 				self.feedItems.append(feedItem)
 			}
 		}
@@ -115,11 +115,11 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		feedCell.delegate = self
 		let feedItem = self.feedItems[indexPath.row]
 		guard let data = feedItem.thumbnail else {
-			feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: nil, contentURL: feedItem.contentURLString)
+			feedCell.configureCell(withFeedItem: feedItem)
 			return cell
 		}
 		let image = UIImage(data: data)
-		feedCell.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image, contentURL: feedItem.contentURLString)
+		feedCell.configureCell(withFeedItem: feedItem, image: image)
 		return cell
 	}
 	

@@ -56,5 +56,9 @@ class FeedItemTableViewCell: UITableViewCell {
 		self.contentURLString = contentURL
 		
 	}
+	
+	func configureCell(withFeedItem feedItem: FeedItem, image: UIImage? = nil) {
+		self.configureCell(title: feedItem.title, dateUpdated: feedItem.dateUpdated, category: feedItem.category, isSelected: feedItem.isPinned, image: image, contentURL: feedItem.contentURLString)
+	}
     
 }
