@@ -12,6 +12,9 @@ import CoreData
 class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FeedItemCellDelegate {
 	
 	@IBOutlet weak private var tableView: UITableView!
+	
+	@IBOutlet weak var spinner: UIActivityIndicatorView!
+	
 	private var feedItems: [FeedItem] = [] {
 		didSet {
 			self.tableView.reloadData()
@@ -36,9 +39,11 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		super.viewDidLoad()
 		self.setupTableView()
 		self.navigationItem.title = Constants.feedItems
-				self.refreshFeed() {
-					self.feedLoaded = true
-					print("feed refreshed")
+		self.spinner.startAnimating()
+		self.refreshFeed() {
+			self.feedLoaded = true
+			self.spinner.stopAnimating()
+			print("feed refreshed")
 		}
 	}
 	
