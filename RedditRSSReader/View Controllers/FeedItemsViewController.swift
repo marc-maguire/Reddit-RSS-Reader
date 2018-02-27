@@ -13,7 +13,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	@IBOutlet weak private var tableView: UITableView!
 	
-	@IBOutlet weak var spinner: UIActivityIndicatorView!
+	@IBOutlet weak private var spinner: UIActivityIndicatorView!
 	
 	private var feedItems: [FeedItem] = [] {
 		didSet {
@@ -21,6 +21,9 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 		}
 	}
 	private var feedLoaded = false
+	
+	
+	lazy private var downloader: RSSDataFetcher = RSSDataFetcher()
 	
 	lazy private var refreshControl: UIRefreshControl = {
 		let refreshControl = UIRefreshControl()
@@ -72,8 +75,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	}
 	
 	private func refreshFeed(completion: @escaping ()->()) {
-		let downloader = RSSDataFetcher()
-		downloader.refreshRSSFeed { feedItems in
+		self.downloader.refreshRSSFeed { feedItems in
 			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
 			self.syncPinnedItems()
 			completion()
@@ -140,7 +142,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	private var finishedLoadingInitialTableCells = false
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		//ref: https://stackoverflow.com/questions/33410482/table-view-cell-load-animation-one-after-another
+//		ref: https://stackoverflow.com/questions/33410482/table-view-cell-load-animation-one-after-another
 		var lastInitialDisplayableCell = false
 		
 		//change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
