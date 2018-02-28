@@ -58,10 +58,20 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 						completion(self.parsedFeedItems)
 					}
 				}
+				func parsingFailed() {
+					DispatchQueue.main.async {
+						completion([])
+					}
+				}
 				//the parser is synchronus, make sure you are on a background thread
+				guard !Thread.isMainThread else {
+					print("XML Parser would have run on the main queue, initialization aborted")
+					parsingFailed()
+					return
+				}
 				if !parser.parse() {
 					print("parser failed during processing")
-					completion([])
+					parsingFailed()
 				}
 			}
 		}
