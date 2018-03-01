@@ -56,6 +56,7 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 				self.parserDidFinishParsingEvent = { () in
 					DispatchQueue.main.async {
 						completion(self.parsedFeedItems)
+						self.parsedFeedItems.removeAll()
 					}
 				}
 				func parsingFailed() {
@@ -83,9 +84,9 @@ class RSSDataFetcher: NSObject, XMLParserDelegate {
 			switch response.result {
 			case .success:
 				completion(response.data, response.error)
-			case .failure:
+			case .failure(let error):
 				print("Reddit XML download failed: \(String(describing: response.result.error))")
-				completion(nil, nil)
+				completion(nil, error)
 			}
 		}
 	}

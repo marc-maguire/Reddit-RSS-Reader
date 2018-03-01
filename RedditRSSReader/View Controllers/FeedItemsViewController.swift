@@ -76,7 +76,7 @@ class FeedItemsViewController: UIViewController, UITableViewDataSource, UITableV
 	
 	private func refreshFeed(completion: @escaping ()->()) {
 		self.downloader.refreshRSSFeed { feedItems in
-			self.feedItems = feedItems.sorted() { $0.dateUpdated > $1.dateUpdated }
+			self.feedItems = feedItems
 			self.syncPinnedItems()
 			completion()
 		}
